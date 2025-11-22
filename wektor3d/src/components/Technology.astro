@@ -1,0 +1,58 @@
+---
+const features = [
+  "Błyskawiczna Realizacja",
+  "Precyzja do 0.08mm",
+  "Zaawansowane Materiały (PLA, PETG, ABS, ASA, PA-CF)",
+  "System AMS - Druk Wielokolorowy"
+];
+---
+
+<section class="py-24 bg-zinc-950 text-white overflow-hidden">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <!-- Image Column (Left on Desktop) -->
+      <div class="order-2 md:order-1 relative">
+        <!-- Glow Effect -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-orange-500/10 blur-[80px] rounded-full pointer-events-none"></div>
+        
+        <div class="relative bg-zinc-900 border border-zinc-800 rounded-2xl aspect-square flex items-center justify-center overflow-hidden shadow-2xl group">
+          <div class="text-center p-8">
+            <span class="text-6xl mb-4 block group-hover:scale-110 transition-transform duration-500">⚙️</span>
+            <p class="text-zinc-500 font-medium">Bambu Lab P2S</p>
+            <p class="text-zinc-600 text-sm mt-2">600x600 Placeholder</p>
+          </div>
+          
+          <!-- Optional: Overlay gradient for depth -->
+          <div class="absolute inset-0 bg-gradient-to-tr from-zinc-950/50 to-transparent pointer-events-none"></div>
+        </div>
+      </div>
+
+      <!-- Text Column (Right on Desktop) -->
+      <div class="order-1 md:order-2 space-y-8">
+        <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+          Technologia, która <br/>
+          <span class="text-orange-500">robi różnicę</span>
+        </h2>
+        
+        <p class="text-zinc-400 text-lg leading-relaxed">
+          Korzystamy z najnowszych rozwiązań w branży druku 3D. 
+          Nasza flota drukarek Bambu Lab P2S gwarantuje powtarzalność, 
+          szybkość i jakość, której nie znajdziesz w domowych rozwiązaniach.
+        </p>
+
+        <ul class="space-y-4">
+          {features.map((feature) => (
+            <li class="flex items-center gap-3 text-zinc-300">
+              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              </span>
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

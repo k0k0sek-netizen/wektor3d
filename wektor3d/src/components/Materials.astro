@@ -1,0 +1,70 @@
+---
+const materials = [
+  {
+    name: "PLA / PLA Silk / Matte",
+    description: "Podstawowy materiał do prototypów i figurek. Biodegradowalny, dostępny w wielu kolorach.",
+    features: ["Estetyka", "Prototypowanie", "Modele pokazowe"],
+    color: "bg-blue-500"
+  },
+  {
+    name: "PETG",
+    description: "Wytrzymały materiał odporny na uderzenia i chemikalia. Idealny do części użytkowych.",
+    features: ["Wytrzymałość", "Odporność chemiczna", "Wodoodporność"],
+    color: "bg-green-500"
+  },
+  {
+    name: "ASA / ABS",
+    description: "Materiały odporne na promieniowanie UV i wysokie temperatury. Do zastosowań zewnętrznych.",
+    features: ["Odporność UV", "Temp. do 100°C", "Części mechaniczne"],
+    color: "bg-orange-500"
+  },
+  {
+    name: "TPU 95A",
+    description: "Elastyczny materiał przypominający gumę. Doskonały na uszczelki i odbojniki.",
+    features: ["Elastyczność", "Odporność na ścieranie", "Tłumienie drgań"],
+    color: "bg-yellow-500"
+  },
+  {
+    name: "PA-CF / PETG-CF",
+    description: "Kompozyty wzmacniane włóknem węglowym. Ekstremalna sztywność i wytrzymałość.",
+    features: ["Sztywność", "Matowe wykończenie", "Części inżynieryjne"],
+    color: "bg-zinc-500"
+  },
+  {
+    name: "Inne na zamówienie",
+    description: "Potrzebujesz specyficznego materiału? Skontaktuj się z nami.",
+    features: ["PC", "Nylon", "PP", "PVA"],
+    color: "bg-purple-500"
+  }
+];
+---
+
+<section class="py-24 bg-zinc-900/50 text-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-bold mb-4">Dostępne Materiały</h2>
+      <p class="text-zinc-400 text-lg">Dobieramy odpowiedni materiał do Twojego zastosowania.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {materials.map((material) => (
+        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-zinc-700 transition-colors group">
+          <div class={`w-12 h-1 rounded-full ${material.color} mb-6 group-hover:w-24 transition-all duration-300`}></div>
+          
+          <h3 class="text-xl font-bold mb-3">{material.name}</h3>
+          <p class="text-zinc-400 text-sm mb-6 leading-relaxed min-h-[60px]">
+            {material.description}
+          </p>
+          
+          <div class="flex flex-wrap gap-2">
+            {material.features.map((feature) => (
+              <span class="px-3 py-1 bg-zinc-800 rounded-full text-xs text-zinc-300 border border-zinc-700">
+                {feature}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

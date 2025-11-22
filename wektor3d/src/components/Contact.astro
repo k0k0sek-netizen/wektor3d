@@ -1,0 +1,87 @@
+---
+---
+
+<section class="py-24 bg-zinc-900 text-white" id="contact">
+  <div class="container mx-auto px-4 max-w-2xl">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-5xl font-bold mb-4">Uzyskaj Darmową Wycenę</h2>
+      <p class="text-zinc-400 text-lg">Wypełnij formularz, a odpowiemy z wyceną najszybciej jak to możliwe.</p>
+    </div>
+
+    <form action="https://formspree.io/f/mjkzrlay" method="POST" class="space-y-6 bg-zinc-950/50 p-8 rounded-2xl border border-zinc-800 shadow-xl">
+      
+      <!-- Name -->
+      <div>
+        <label for="name" class="block text-sm font-medium text-zinc-400 mb-2">Imię</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          required
+          class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-zinc-400 mb-2">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          required
+          class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
+        />
+      </div>
+
+      <!-- Link to Model -->
+      <div>
+        <label for="link" class="block text-sm font-medium text-zinc-400 mb-2">Link do modelu</label>
+        <input 
+          type="text" 
+          id="link" 
+          name="link" 
+          required
+          placeholder="Link do pliku (np. Google Drive, WeTransfer, Dropbox)"
+          class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
+        />
+      </div>
+
+      <!-- Material -->
+      <div>
+        <label for="material" class="block text-sm font-medium text-zinc-400 mb-2">Materiał</label>
+        <select 
+          id="material" 
+          name="material" 
+          class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors appearance-none"
+        >
+          <option value="doradz">Nie wiem / Doradź mi</option>
+          <option value="pla">PLA</option>
+          <option value="petg">PETG</option>
+          <option value="asa">ASA</option>
+          <option value="tpu">TPU</option>
+        </select>
+      </div>
+
+      <!-- Message -->
+      <div>
+        <label for="message" class="block text-sm font-medium text-zinc-400 mb-2">Wiadomość (opcjonalne)</label>
+        <textarea 
+          id="message" 
+          name="message" 
+          rows="4"
+          class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit" 
+        class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-lg transition-colors shadow-lg shadow-orange-900/20"
+      >
+        Wyślij Zapytanie
+      </button>
+
+    </form>
+  </div>
+</section>
