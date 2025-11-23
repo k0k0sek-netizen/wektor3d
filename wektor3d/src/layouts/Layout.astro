@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
 	title: string;
@@ -17,9 +18,31 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Service",
+		  "name": "Wektor Kodu - Druk 3D",
+		  "description": "Precyzyjne usługi druku 3D na zamówienie. Prototypowanie, części zamienne, modele.",
+		  "provider": {
+		    "@type": "LocalBusiness",
+		    "name": "Wektor Kodu",
+		    "image": "https://wektor3d.vercel.app/favicon.svg",
+		    "priceRange": "$$"
+		  },
+		  "serviceType": "3D Printing",
+		  "areaServed": "Poland",
+		  "availableChannel": {
+		    "@type": "ServiceChannel",
+		    "serviceUrl": "https://wektor3d.vercel.app"
+		  }
+		}
+		</script>
 	</head>
 	<body class="bg-zinc-950">
 		<slot />
+		<Analytics />
 		<script>
 			const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
 			const observer = new IntersectionObserver((entries) => {

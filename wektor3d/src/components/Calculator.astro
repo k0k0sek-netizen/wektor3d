@@ -1,0 +1,91 @@
+---
+---
+
+<section class="py-24 bg-zinc-900/50 text-white fade-in-section" id="kalkulator">
+  <div class="container mx-auto px-4 max-w-2xl">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-b from-white via-zinc-200 to-zinc-500 font-bold tracking-tight mb-4">Sprawdź szacunkowy koszt</h2>
+      <p class="text-zinc-400 text-lg">Oblicz orientacyjną cenę wydruku na podstawie wagi i materiału.</p>
+    </div>
+
+    <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl shadow-2xl">
+      <!-- Weight Input -->
+      <div class="mb-8">
+        <label for="weight" class="block text-sm font-medium text-zinc-400 mb-2">Waga modelu (g)</label>
+        <div class="flex items-center gap-4">
+          <input 
+            type="range" 
+            id="weight" 
+            min="1" 
+            max="500" 
+            value="50" 
+            class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-orange-500"
+          >
+          <span id="weight-value" class="text-xl font-bold text-white min-w-[3ch]">50</span>
+          <span class="text-zinc-500">g</span>
+        </div>
+      </div>
+
+      <!-- Material Select -->
+      <div class="mb-8">
+        <label for="material" class="block text-sm font-medium text-zinc-400 mb-2">Materiał</label>
+        <select 
+          id="material" 
+          class="w-full bg-zinc-950 border border-zinc-800 text-white rounded-lg p-3 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
+        >
+          <option value="pla">PLA (Ekonomiczny)</option>
+          <option value="petg">PETG (Wytrzymały)</option>
+          <option value="asa">ASA (Odporny na UV)</option>
+          <option value="tpu">TPU (Elastyczny)</option>
+        </select>
+      </div>
+
+      <!-- Result -->
+      <div class="bg-zinc-950/50 border border-zinc-800/50 rounded-xl p-6 text-center mb-6">
+        <p class="text-zinc-400 text-sm mb-2">Szacunkowy koszt</p>
+        <p class="text-3xl md:text-4xl font-bold text-orange-500" id="result">
+          45 - 59 PLN
+        </p>
+      </div>
+
+      <p class="text-xs text-zinc-500 text-center">
+        *Cena jest orientacyjna i nie stanowi oferty handlowej. Ostateczną wycenę otrzymasz po przesłaniu pliku.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const weightInput = document.getElementById('weight') as HTMLInputElement;
+  const weightValue = document.getElementById('weight-value');
+  const materialSelect = document.getElementById('material') as HTMLSelectElement;
+  const resultDisplay = document.getElementById('result');
+
+  const BASE_COST = 20;
+  const RATES = {
+    pla: 0.50,
+    petg: 0.70,
+    asa: 1.00,
+    tpu: 1.20
+  };
+
+  function calculateCost() {
+    const weight = parseInt(weightInput.value);
+    const material = materialSelect.value as keyof typeof RATES;
+    const rate = RATES[material];
+
+    const minCost = BASE_COST + (weight * rate);
+    const maxCost = minCost * 1.3;
+
+    if (weightValue) weightValue.textContent = weight.toString();
+    if (resultDisplay) {
+      resultDisplay.textContent = `${Math.round(minCost)} - ${Math.round(maxCost)} PLN`;
+    }
+  }
+
+  weightInput?.addEventListener('input', calculateCost);
+  materialSelect?.addEventListener('change', calculateCost);
+
+  // Initial calculation
+  calculateCost();
+</script>
