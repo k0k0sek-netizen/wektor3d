@@ -1,4 +1,5 @@
 ---
+import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Navbar from '../components/Navbar.astro';
 import Process from '../components/Process.astro';
@@ -10,30 +11,20 @@ import About from '../components/About.astro';
 import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
-import '../styles/global.css';
 ---
 
-<html lang="pl">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Drukarnia 3D - Prototypowanie i Produkcja</title>
-	</head>
-	<body class="bg-zinc-950">
-		<main>
-			<Navbar />
-			<Hero />
-			<Process />
-			<Sources />
-			<Technology />
-			<Portfolio />
-			<Materials />
-			<About />
-			<Faq />
-			<Contact />
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout title="Drukarnia 3D - Prototypowanie i Produkcja">
+	<Navbar />
+	<main>
+		<Hero />
+		<Process />
+		<Sources />
+		<Technology />
+		<Portfolio />
+		<Materials />
+		<About />
+		<Faq />
+		<Contact />
+	</main>
+	<Footer />
+</Layout>

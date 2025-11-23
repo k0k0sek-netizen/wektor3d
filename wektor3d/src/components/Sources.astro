@@ -23,10 +23,10 @@ const sources = [
 ];
 ---
 
-<section class="py-24 bg-zinc-900 text-white" id="zrodla">
+<section class="py-24 bg-zinc-900 text-white fade-in-section" id="zrodla">
   <div class="container mx-auto px-4">
     <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-5xl font-bold mb-4">Nie masz własnego projektu?</h2>
+      <h2 class="text-3xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-b from-white via-zinc-200 to-zinc-500 font-bold tracking-tight mb-4">Nie masz własnego projektu?</h2>
       <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
         To nie problem. W internecie znajdziesz miliony gotowych modeli. 
         Wybierz coś dla siebie, skopiuj link i prześlij go nam do wyceny.
@@ -39,15 +39,18 @@ const sources = [
           href={source.url} 
           target="_blank" 
           rel="noopener noreferrer"
-          class="group bg-zinc-950 border border-zinc-800 p-8 rounded-2xl hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-1"
+          class="group relative overflow-hidden bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-1"
         >
-          <div class="flex items-center justify-between mb-4">
+          <div class="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
+               style="background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255,255,255,0.06), transparent 40%); z-index: 10;">
+          </div>
+          <div class="flex items-center justify-between mb-4 relative z-20">
             <h3 class="text-xl font-bold group-hover:text-orange-500 transition-colors">{source.name}</h3>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-zinc-600 group-hover:text-orange-500 transition-colors">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
             </svg>
           </div>
-          <p class="text-zinc-400 text-sm leading-relaxed">{source.description}</p>
+          <p class="text-zinc-400 text-sm leading-relaxed relative z-20">{source.description}</p>
         </a>
       ))}
     </div>
@@ -65,3 +68,16 @@ const sources = [
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('.group').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const target = card as HTMLElement; 
+      const rect = target.getBoundingClientRect();
+      const x = (e as MouseEvent).clientX - rect.left;
+      const y = (e as MouseEvent).clientY - rect.top;
+      target.style.setProperty('--mouse-x', `${x}px`);
+      target.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+</script>
