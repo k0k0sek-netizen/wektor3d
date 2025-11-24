@@ -1,101 +1,101 @@
 ---
-const links = [
-  { name: "Proces", href: "#proces" },
-  { name: "Technologia", href: "#technologia" },
-  { name: "Realizacje", href: "#realizacje" },
-  { name: "Materiały", href: "#materials" },
-  { name: "Źródła", href: "#zrodla" },
-  { name: "FAQ", href: "#faq" },
-  { name: "Kontakt", href: "#kontakt" },
-];
 ---
 
-<nav class="fixed top-0 w-full z-50 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
+<nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
   <div class="container mx-auto px-6 h-20 flex items-center justify-between">
-    <a href="#" class="text-xl font-bold tracking-tighter text-white">Wektor 3D</a>
+    
+    <a href="#" class="text-xl font-bold tracking-tighter text-white z-50 relative">
+      Wektor Kodu
+    </a>
 
-    <!-- Desktop Menu -->
-    <div class="hidden lg:flex gap-6 items-center">
-      {links.map((link) => (
-        <a 
-          href={link.href} 
-          class="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-        >
-          {link.name}
-        </a>
-      ))}
-      <a 
-        href="https://wektor-kodu.vercel.app" 
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-sm font-medium text-teal-400 hover:text-teal-300 transition-colors border border-teal-400/30 px-4 py-1.5 rounded-full hover:bg-teal-400/10"
-      >
+    <div class="hidden md:flex gap-8 items-center">
+      <a href="#proces" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Proces</a>
+      <a href="#zrodla" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Źródła</a>
+      <a href="#technologia" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Technologia</a>
+      <a href="#realizacje" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Realizacje</a>
+      <a href="#materials" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Materiały</a>
+      <a href="#faq" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">FAQ</a>
+      
+      <a href="https://wektor-kodu.vercel.app" target="_blank" class="flex items-center gap-2 text-sm text-zinc-400 hover:text-teal-400 transition-colors border-l border-white/10 pl-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         Software
+      </a>
+
+      <a href="#kontakt" class="px-5 py-2.5 bg-orange-600 hover:bg-orange-500 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-orange-500/20">
+        Wycena
       </a>
     </div>
 
-    <!-- Hamburger Button -->
-    <button id="menu-toggle" class="lg:hidden z-50 relative group p-2" aria-label="Toggle menu">
-      <div class="space-y-2">
-        <span class="block w-8 h-0.5 bg-white transition-transform duration-300 origin-center" id="line1"></span>
-        <span class="block w-8 h-0.5 bg-white transition-opacity duration-300" id="line2"></span>
-        <span class="block w-8 h-0.5 bg-white transition-transform duration-300 origin-center" id="line3"></span>
-      </div>
+    <button id="menu-btn" class="md:hidden relative z-60 p-2 text-white focus:outline-none" aria-label="Menu">
+      <svg id="icon-open" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      
+      <svg id="icon-close" class="w-8 h-8 absolute top-2 left-2 opacity-0 scale-50 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
     </button>
   </div>
 
-  <!-- Mobile Menu Overlay -->
-  <div id="mobile-menu" class="fixed inset-0 bg-zinc-950/98 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-all duration-300">
-    {links.map((link) => (
-      <a 
-        href={link.href} 
-        class="mobile-link text-3xl font-bold text-zinc-300 hover:text-white transition-colors"
-      >
-        {link.name}
+  <div id="mobile-menu" class="fixed inset-0 z-50 bg-zinc-950 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300 ease-in-out h-[100dvh] w-screen">
+    
+    <nav class="flex flex-col items-center gap-6 w-full px-6 overflow-y-auto max-h-full py-20">
+      <a href="#proces" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white">Proces</a>
+      <a href="#zrodla" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white">Źródła</a>
+      <a href="#technologia" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white">Technologia</a>
+      <a href="#realizacje" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white">Realizacje</a>
+      <a href="#materials" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white">Materiały</a>
+      <a href="#faq" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white">FAQ</a>
+      
+      <div class="w-16 h-px bg-zinc-800 my-2"></div>
+      
+      <a href="https://wektor-kodu.vercel.app" target="_blank" class="mobile-link text-xl text-teal-400 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Wektor Kodu (IT)
       </a>
-    ))}
-    <a 
-      href="https://wektor-kodu.vercel.app" 
-      target="_blank"
-      rel="noopener noreferrer"
-      class="mobile-link text-xl text-teal-400 mt-4 border border-teal-400/30 px-8 py-3 rounded-full hover:bg-teal-400/10 transition-colors"
-    >
-      Usługi Software
-    </a>
+
+      <a href="#kontakt" class="mobile-link mt-4 px-8 py-4 bg-orange-600 text-white text-xl font-bold rounded-xl w-full text-center max-w-xs shadow-orange-500/20 shadow-xl">
+        Darmowa Wycena
+      </a>
+    </nav>
   </div>
 </nav>
 
 <script>
-  const btn = document.getElementById('menu-toggle');
+  const btn = document.getElementById('menu-btn');
   const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
   const links = document.querySelectorAll('.mobile-link');
-  const lines = [document.getElementById('line1'), document.getElementById('line2'), document.getElementById('line3')];
-  let isOpen = false;
+  let isMenuOpen = false;
 
   function toggleMenu() {
-    isOpen = !isOpen;
-    document.body.style.overflow = isOpen ? 'hidden' : ''; // Scroll Lock
-    
-    // Animacja Menu
-    if(isOpen) {
-      menu?.classList.remove('opacity-0', 'pointer-events-none');
-      menu?.classList.add('opacity-100', 'pointer-events-auto');
+    isMenuOpen = !isMenuOpen;
+
+    if (isMenuOpen) {
+      // Otwieranie
+      menu.classList.remove('translate-x-full'); // Wjazd menu
+      document.body.style.overflow = 'hidden';   // Blokada scrolla strony
       
-      // Animacja Hamburgera w X
-      lines[0]?.classList.add('rotate-45', 'translate-y-2.5');
-      lines[1]?.classList.add('opacity-0');
-      lines[2]?.classList.add('-rotate-45', '-translate-y-2.5');
+      // Animacja ikony: Hamburger znika, X się pojawia
+      iconOpen.classList.add('opacity-0', 'rotate-90');
+      iconClose.classList.remove('opacity-0', 'scale-50');
+      iconClose.classList.add('rotate-0', 'scale-100');
     } else {
-      menu?.classList.remove('opacity-100', 'pointer-events-auto');
-      menu?.classList.add('opacity-0', 'pointer-events-none');
+      // Zamykanie
+      menu.classList.add('translate-x-full');    // Wyjazd menu
+      document.body.style.overflow = '';         // Odblokowanie scrolla
       
-      // Powrót Hamburgera
-      lines[0]?.classList.remove('rotate-45', 'translate-y-2.5');
-      lines[1]?.classList.remove('opacity-0');
-      lines[2]?.classList.remove('-rotate-45', '-translate-y-2.5');
+      // Animacja ikony: X znika, Hamburger wraca
+      iconOpen.classList.remove('opacity-0', 'rotate-90');
+      iconClose.classList.add('opacity-0', 'scale-50');
+      iconClose.classList.remove('rotate-0', 'scale-100');
     }
   }
 
-  btn?.addEventListener('click', toggleMenu);
-  links.forEach(link => link.addEventListener('click', toggleMenu)); // Zamknij po kliknięciu
+  // Obsługa przycisku
+  btn.addEventListener('click', toggleMenu);
+
+  // Obsługa kliknięcia w link (zamyka menu)
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      if (isMenuOpen) toggleMenu();
+    });
+  });
 </script>
