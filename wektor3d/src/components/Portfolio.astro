@@ -2,31 +2,29 @@
 const projects = [
   {
     title: "Prototyp obudowy",
+    description: "Funkcjonalny prototyp obudowy urządzenia IoT.",
     material: "ASA",
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
     size: "col-span-1 md:col-span-1"
   },
   {
-    title: "Figurka kolekcjonerska",
-    material: "PLA Silk",
+    title: "Części Zamienne AGD/RTV",
+    description: "Odtworzona zębatka do mechanizmu rolety/miksera.",
+    material: "PETG/Nylon",
     image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?q=80&w=800&auto=format&fit=crop",
     size: "col-span-1 md:col-span-1"
   },
   {
-    title: "Część techniczna",
-    material: "PETG-CF",
-    image: "https://images.unsplash.com/photo-1631541909061-71e349d1f203?q=80&w=800&auto=format&fit=crop",
-    size: "col-span-1 md:col-span-1"
-  },
-  {
-    title: "Uszczelka",
+    title: "Elementy Amortyzujące",
+    description: "Tuleje, odbojniki i nóżki wykonane z elastycznego materiału.",
     material: "TPU 95A",
     image: "https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?q=80&w=800&auto=format&fit=crop",
     size: "col-span-1 md:col-span-2"
   },
   {
-    title: "Makieta architektoniczna",
-    material: "PLA Matte",
+    title: "Obudowy do Elektroniki",
+    description: "Personalizowana obudowa pod układy Arduino/Raspberry Pi.",
+    material: "ASA",
     image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=800&auto=format&fit=crop",
     size: "col-span-1 md:col-span-1"
   }
@@ -55,7 +53,10 @@ const projects = [
             <h3 class="text-xl font-bold text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
               {project.title}
             </h3>
-            <p class="text-orange-400 font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+            <p class="text-zinc-300 text-sm mt-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+              {project.description}
+            </p>
+            <p class="text-orange-400 font-medium mt-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
               {project.material}
             </p>
           </div>
