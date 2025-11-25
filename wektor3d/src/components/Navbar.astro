@@ -34,7 +34,7 @@
     </button>
   </div>
 
-  <div id="mobile-menu" class="fixed inset-0 z-[100] bg-zinc-950 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none invisible transition-all duration-300 ease-in-out h-[100dvh] w-screen">
+  <div id="mobile-menu" class="fixed inset-0 z-[100] bg-zinc-950 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300 ease-in-out h-[100dvh] w-screen">
     
     <nav class="flex flex-col items-center gap-6 w-full px-6 overflow-y-auto max-h-full py-20">
       <a href="#proces" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white active:text-white active:scale-95 transition-transform">Proces</a>
@@ -62,39 +62,62 @@
 <script>
   const btn = document.getElementById('menu-btn');
   const menu = document.getElementById('mobile-menu');
-  const links = document.querySelectorAll('.mobile-link');
   const iconOpen = document.getElementById('icon-open');
   const iconClose = document.getElementById('icon-close');
+  const mobileLinks = menu.querySelectorAll('a');
   let isOpen = false;
 
-  function toggleMenu() {
+  function toggleMenuState() {
     isOpen = !isOpen;
+    console.log('Stan menu:', isOpen ? 'Otwarte' : 'Zamknięte');
     
     if (isOpen) {
-      // Otwieranie
-      menu.classList.remove('opacity-0', 'pointer-events-none', 'invisible');
-      menu.classList.add('opacity-100', 'pointer-events-auto', 'visible');
-      document.body.style.overflow = 'hidden'; // Blokada scrolla
-      
-      // Ikony
-      iconOpen.classList.add('hidden');
-      iconClose.classList.remove('hidden');
+      menu.classList.remove('translate-x-full');
+      document.body.style.overflow = 'hidden'; // LOCK
     } else {
-      // Zamykanie
-      menu.classList.remove('opacity-100', 'pointer-events-auto', 'visible');
-      menu.classList.add('opacity-0', 'pointer-events-none', 'invisible');
-      document.body.style.overflow = ''; // Odblokowanie scrolla
-      
-      // Ikony
-      iconOpen.classList.remove('hidden');
-      iconClose.classList.add('hidden');
+      menu.classList.add('translate-x-full');
+      document.body.style.overflow = ''; // UNLOCK
+    }
+    
+    // Obsługa ikon
+    if(isOpen) {
+        iconOpen.classList.add('opacity-0', 'rotate-90');
+        iconClose.classList.remove('opacity-0', 'scale-50');
+        iconClose.classList.add('rotate-0', 'scale-100');
+    } else {
+        iconOpen.classList.remove('opacity-0', 'rotate-90');
+        iconClose.classList.add('opacity-0', 'scale-50');
+        iconClose.classList.remove('rotate-0', 'scale-100');
     }
   }
 
-  btn.addEventListener('click', toggleMenu);
-  
-  // Każdy link zamyka menu natychmiast
-  links.forEach(link => {
-    link.addEventListener('click', toggleMenu);
-  });
+  function handleLinkClick(e) {
+    if (!isOpen) return;
+    e.preventDefault();
+    
+    const targetId = this.getAttribute('href');
+    console.log('1. Kliknięto link mobilny:', targetId);
+
+    // KROK 1: Odblokuj scroll i zamknij menu
+    toggleMenuState();
+    console.log('2. Menu zamknięte, scroll odblokowany');
+
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+        // KROK 2: Poczekaj 350ms (niech menu zjedzie) i przewiń
+        setTimeout(() => {
+             console.log('3. Wykonuję przewinięcie do:', targetId);
+             targetElement.scrollIntoView({
+               behavior: 'smooth',
+               block: 'start'
+             });
+        }, 350);
+    } else if (targetId.startsWith('http')) {
+        // Obsługa linków zewnętrznych (np. Wektor Kodu)
+        window.open(targetId, '_blank');
+    }
+  }
+
+  btn.addEventListener('click', toggleMenuState);
+  mobileLinks.forEach(link => link.addEventListener('click', handleLinkClick));
 </script>
