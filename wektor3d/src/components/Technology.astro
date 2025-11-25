@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 const features = [
   "Błyskawiczna Realizacja",
   "Precyzja do 0.08mm",
@@ -16,11 +17,13 @@ const features = [
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-orange-500/10 blur-[80px] rounded-full pointer-events-none"></div>
         
         <div class="relative bg-zinc-900 border border-zinc-800 rounded-2xl aspect-square flex items-center justify-center overflow-hidden shadow-2xl group">
-          <div class="text-center p-8">
-            <span class="text-6xl mb-4 block group-hover:scale-110 transition-transform duration-500">⚙️</span>
-            <p class="text-zinc-500 font-medium">Precyzja i Powtarzalność</p>
-            <p class="text-zinc-600 text-sm mt-2">600x600 Placeholder</p>
-          </div>
+          <Image 
+            src="/technologia.webp" 
+            alt="Makrofotografia zębatki 3D z materiału PA-CF Carbon Fiber, widoczne precyzyjne warstwy" 
+            width={600} 
+            height={600} 
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
           
           <!-- Optional: Overlay gradient for depth -->
           <div class="absolute inset-0 bg-gradient-to-tr from-zinc-950/50 to-transparent pointer-events-none"></div>
