@@ -1,5 +1,6 @@
 ```
 ---
+import { Image } from 'astro:assets';
 ---
 
 <section class="py-24 bg-gradient-to-b from-zinc-900 to-zinc-950 text-white relative overflow-hidden fade-in-section">
@@ -44,14 +45,13 @@
           
           <!-- Avatar Container -->
           <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-2 bg-gradient-to-tr from-zinc-800 to-zinc-950 border border-zinc-800 shadow-2xl">
-            <div class="w-full h-full rounded-full overflow-hidden bg-zinc-900 flex items-center justify-center relative">
-              <!-- Placeholder Avatar -->
-              <div class="absolute inset-0 bg-zinc-800 animate-pulse"></div>
-              <span class="relative z-10 text-6xl">👨‍💻</span>
-              
-              <!-- Actual Image (commented out for now) -->
-              <!-- <img src="/avatar.jpg" alt="Wektor Kodu" class="w-full h-full object-cover" /> -->
-            </div>
+              <Image 
+                src="/avatar.webp" 
+                alt="Wektor Kodu - Awatar" 
+                width={400} 
+                height={400} 
+                class="rounded-full w-full h-full object-cover border-4 border-zinc-800 shadow-2xl" 
+              />
             
             <!-- Decorative elements -->
             <div class="absolute -bottom-4 -right-4 bg-zinc-900 border border-zinc-700 text-orange-500 p-3 rounded-full shadow-xl">
