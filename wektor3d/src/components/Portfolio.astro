@@ -58,18 +58,18 @@ const projects = [
             width={800}
             height={600}
             format="webp"
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-active:scale-105"
           />
           
           <!-- Overlay & Content -->
-          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-            <h3 class="text-xl font-bold text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <h3 class="text-xl font-bold text-white translate-y-4 group-hover:translate-y-0 group-active:translate-y-0 transition-transform duration-300">
               {project.title}
             </h3>
-            <p class="text-zinc-300 text-sm mt-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+            <p class="text-zinc-300 text-sm mt-1 translate-y-4 group-hover:translate-y-0 group-active:translate-y-0 transition-transform duration-300 delay-75">
               {project.description}
             </p>
-            <p class="text-orange-400 font-medium mt-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+            <p class="text-orange-400 font-medium mt-2 translate-y-4 group-hover:translate-y-0 group-active:translate-y-0 transition-transform duration-300 delay-100">
               {project.material}
             </p>
           </div>
