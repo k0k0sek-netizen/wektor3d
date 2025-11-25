@@ -40,6 +40,14 @@ const projects = [
   }
 ];
 ---
+---
+<style>
+  .no-callout {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+</style>
 
 <section class="py-24 bg-zinc-950 text-white fade-in-section" id="realizacje">
   <div class="container mx-auto px-4">
@@ -50,7 +58,7 @@ const projects = [
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       {projects.map((project) => (
-        <div class={`group relative overflow-hidden rounded-2xl aspect-[4/3] ${project.size}`}>
+        <div class={`group relative overflow-hidden rounded-2xl aspect-[4/3] ${project.size} select-none touch-manipulation no-callout`}>
           <!-- Image -->
           <Image 
             src={project.image} 
@@ -62,14 +70,14 @@ const projects = [
           />
           
           <!-- Overlay & Content -->
-          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-            <h3 class="text-xl font-bold text-white translate-y-4 group-hover:translate-y-0 group-active:translate-y-0 transition-transform duration-300">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 group-[.is-active]:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <h3 class="text-xl font-bold text-white translate-y-4 group-hover:translate-y-0 group-active:translate-y-0 group-[.is-active]:translate-y-0 transition-transform duration-300">
               {project.title}
             </h3>
-            <p class="text-zinc-300 text-sm mt-1 translate-y-4 group-hover:translate-y-0 group-active:translate-y-0 transition-transform duration-300 delay-75">
+            <p class="text-zinc-300 text-sm mt-1 translate-y-4 group-hover:translate-y-0 group-active:translate-y-0 group-[.is-active]:translate-y-0 transition-transform duration-300 delay-75">
               {project.description}
             </p>
-            <p class="text-orange-400 font-medium mt-2 translate-y-4 group-hover:translate-y-0 group-active:translate-y-0 transition-transform duration-300 delay-100">
+            <p class="text-orange-400 font-medium mt-2 translate-y-4 group-hover:translate-y-0 group-active:translate-y-0 group-[.is-active]:translate-y-0 transition-transform duration-300 delay-100">
               {project.material}
             </p>
           </div>
@@ -78,3 +86,31 @@ const projects = [
     </div>
   </div>
 </section>
+
+<script>
+  // Pobierz wszystkie karty
+  const cards = document.querySelectorAll('.group');
+
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Sprawdź, czy karta jest już aktywna
+      const isActive = card.classList.contains('is-active');
+      
+      // Najpierw zamknij wszystkie inne karty (żeby tylko jedna była otwarta)
+      cards.forEach(c => c.classList.remove('is-active'));
+
+      // Jeśli kliknięta nie była aktywna -> aktywuj ją. 
+      // Jeśli była -> pozostanie zamknięta (toggle off).
+      if (!isActive) {
+        card.classList.add('is-active');
+      }
+    });
+  });
+
+  // Kliknięcie w tło (poza kartami) zamyka wszystko
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.group')) {
+      cards.forEach(c => c.classList.remove('is-active'));
+    }
+  });
+</script>
