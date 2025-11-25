@@ -27,14 +27,14 @@
       </a>
     </div>
 
-    <button id="menu-btn" class="md:hidden relative z-60 p-2 text-white focus:outline-none" aria-label="Otwórz menu nawigacyjne">
+    <button id="menu-btn" class="md:hidden relative z-[101] p-2 text-white focus:outline-none" aria-label="Otwórz menu nawigacyjne">
       <svg id="icon-open" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
       
       <svg id="icon-close" class="w-8 h-8 absolute top-2 left-2 opacity-0 scale-50 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
     </button>
   </div>
 
-  <div id="mobile-menu" class="fixed inset-0 z-50 bg-zinc-950 flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300 ease-in-out h-[100dvh] w-screen">
+  <div id="mobile-menu" class="fixed inset-0 z-[100] bg-zinc-950 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none invisible transition-all duration-300 ease-in-out h-[100dvh] w-screen">
     
     <nav class="flex flex-col items-center gap-6 w-full px-6 overflow-y-auto max-h-full py-20">
       <a href="#proces" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white">Proces</a>
@@ -62,42 +62,39 @@
 <script>
   const btn = document.getElementById('menu-btn');
   const menu = document.getElementById('mobile-menu');
+  const links = document.querySelectorAll('.mobile-link');
   const iconOpen = document.getElementById('icon-open');
   const iconClose = document.getElementById('icon-close');
-  const links = document.querySelectorAll('.mobile-link');
-  let isMenuOpen = false;
+  let isOpen = false;
 
   function toggleMenu() {
-    isMenuOpen = !isMenuOpen;
-
-    if (isMenuOpen) {
+    isOpen = !isOpen;
+    
+    if (isOpen) {
       // Otwieranie
-      menu.classList.remove('translate-x-full'); // Wjazd menu
-      document.body.style.overflow = 'hidden';   // Blokada scrolla strony
+      menu.classList.remove('opacity-0', 'pointer-events-none', 'invisible');
+      menu.classList.add('opacity-100', 'pointer-events-auto', 'visible');
+      document.body.style.overflow = 'hidden'; // Blokada scrolla
       
-      // Animacja ikony: Hamburger znika, X się pojawia
-      iconOpen.classList.add('opacity-0', 'rotate-90');
-      iconClose.classList.remove('opacity-0', 'scale-50');
-      iconClose.classList.add('rotate-0', 'scale-100');
+      // Ikony
+      iconOpen.classList.add('hidden');
+      iconClose.classList.remove('hidden');
     } else {
       // Zamykanie
-      menu.classList.add('translate-x-full');    // Wyjazd menu
-      document.body.style.overflow = '';         // Odblokowanie scrolla
+      menu.classList.remove('opacity-100', 'pointer-events-auto', 'visible');
+      menu.classList.add('opacity-0', 'pointer-events-none', 'invisible');
+      document.body.style.overflow = ''; // Odblokowanie scrolla
       
-      // Animacja ikony: X znika, Hamburger wraca
-      iconOpen.classList.remove('opacity-0', 'rotate-90');
-      iconClose.classList.add('opacity-0', 'scale-50');
-      iconClose.classList.remove('rotate-0', 'scale-100');
+      // Ikony
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
     }
   }
 
-  // Obsługa przycisku
   btn.addEventListener('click', toggleMenu);
-
-  // Obsługa kliknięcia w link (zamyka menu)
+  
+  // Każdy link zamyka menu natychmiast
   links.forEach(link => {
-    link.addEventListener('click', () => {
-      if (isMenuOpen) toggleMenu();
-    });
+    link.addEventListener('click', toggleMenu);
   });
 </script>
