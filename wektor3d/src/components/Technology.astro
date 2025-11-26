@@ -16,7 +16,7 @@ const features = [
         <!-- Glow Effect -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-orange-500/10 blur-[80px] rounded-full pointer-events-none"></div>
         
-        <div class="relative bg-zinc-900 border border-zinc-800 rounded-2xl aspect-square flex items-center justify-center overflow-hidden shadow-2xl group">
+        <div id="tech-image-container" class="relative bg-zinc-900 border border-zinc-800 rounded-2xl aspect-square flex items-center justify-center overflow-hidden shadow-2xl group select-none touch-manipulation cursor-pointer transition-transform duration-500 [&.is-active]:scale-105 [&.is-active]:shadow-orange-500/20">
           <Image 
             src="/bambu.webp" 
             alt="wydruk wysokiej jakości" 
@@ -59,3 +59,18 @@ const features = [
     </div>
   </div>
 </section>
+
+<script>
+  const techContainer = document.getElementById('tech-image-container');
+  if (techContainer) {
+    techContainer.addEventListener('click', (e) => {
+      // Prosty przełącznik (włącz/wyłącz powiększenie)
+      techContainer.classList.toggle('is-active');
+    });
+
+    // Opcjonalnie: usuń klasę po 2 sekundach (efekt "pulsowania")
+    techContainer.addEventListener('mouseleave', () => {
+      techContainer.classList.remove('is-active');
+    });
+  }
+</script>
