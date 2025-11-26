@@ -34,6 +34,21 @@
         />
       </div>
 
+      <!-- Order Type -->
+      <div>
+        <label for="order-type" class="block text-sm font-medium text-zinc-300 mb-2">Rodzaj zlecenia</label>
+        <select 
+          id="order-type" 
+          name="order-type" 
+          class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors appearance-none"
+        >
+          <option value="gotowy-plik">Mam gotowy plik (.stl/.3mf)</option>
+          <option value="dorabianie">Potrzebuję dorobić część (Auto/AGD)</option>
+          <option value="szablon">Potrzebuję szablonu/oprzyrządowania</option>
+          <option value="inne">Inne</option>
+        </select>
+      </div>
+
       <!-- Link to Model -->
       <div>
         <label for="link" class="block text-sm font-medium text-zinc-300 mb-2">Link do modelu</label>
