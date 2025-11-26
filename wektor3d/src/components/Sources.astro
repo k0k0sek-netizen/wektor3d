@@ -39,7 +39,7 @@ const sources = [
           href={source.url} 
           target="_blank" 
           rel="noopener noreferrer"
-          class="group relative overflow-hidden bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-orange-500/50 active:border-orange-500/50 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] active:translate-y-0 select-none"
+          class="group relative overflow-hidden bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-orange-500/50 active:border-orange-500/50 transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] active:translate-y-0 select-none touch-manipulation no-callout"
         >
           <div class="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 group-active:opacity-100"
                style="background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255,255,255,0.06), transparent 40%); z-index: 10;">
@@ -54,6 +54,14 @@ const sources = [
         </a>
       ))}
     </div>
+
+    <style>
+      .no-callout {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+    </style>
     
     <div class="text-center mb-12">
       <p class="text-sm text-zinc-500">

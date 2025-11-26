@@ -48,8 +48,8 @@ const materials = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {materials.map((material) => (
-        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-zinc-700 transition-colors group">
-          <div class={`w-12 h-1 rounded-full ${material.color} mb-6 group-hover:w-24 transition-all duration-300`}></div>
+        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-zinc-700 [&.is-active]:border-zinc-700 transition-colors group select-none touch-manipulation no-callout">
+          <div class={`w-12 h-1 rounded-full ${material.color} mb-6 group-hover:w-24 group-[.is-active]:w-24 transition-all duration-300`}></div>
           
           <h3 class="text-xl font-bold mb-3">{material.name}</h3>
           <p class="text-zinc-400 text-sm mb-6 leading-relaxed min-h-[60px]">
@@ -68,3 +68,39 @@ const materials = [
     </div>
   </div>
 </section>
+
+<style>
+  .no-callout {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+</style>
+
+<script>
+  const section = document.currentScript?.closest('section') || document.querySelector('#materials');
+
+  if (section) {
+      const items = section.querySelectorAll('.group');
+
+      items.forEach(item => {
+        item.addEventListener('click', (e) => {
+          if ((e.target as HTMLElement).tagName === 'A' || (e.target as HTMLElement).closest('a')) return;
+
+          const isActive = item.classList.contains('is-active');
+          
+          items.forEach(i => i.classList.remove('is-active'));
+
+          if (!isActive) {
+            item.classList.add('is-active');
+          }
+        });
+      });
+
+      section.addEventListener('click', (e) => {
+        if (!(e.target as HTMLElement).closest('.group')) {
+          items.forEach(i => i.classList.remove('is-active'));
+        }
+      });
+  }
+</script>
