@@ -1,61 +1,53 @@
 ---
 ---
 
-<nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
-  <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+<nav class="fixed top-0 w-full z-50 bg-zinc-950/90 backdrop-blur-xl border-b border-white/5">
+  <div class="container mx-auto px-6 h-20 flex items-center justify-between relative z-50">
     
-    <a href="#" class="text-xl font-bold tracking-tighter text-white z-50 relative" aria-label="Wektor 3D - Strona Główna">
+    <a href="#" class="text-xl font-bold tracking-tighter text-white flex items-center gap-2" aria-label="Wektor 3D - Strona Główna">
       Wektor 3D
     </a>
 
-    <div class="hidden md:flex items-center space-x-8">
-          <a href="#oferta" class="text-sm font-medium text-zinc-300 hover:text-orange-500 transition-colors">Oferta</a>
-          <a href="#technologia" class="text-sm font-medium text-zinc-300 hover:text-orange-500 transition-colors">Technologia</a>
-          <a href="#realizacje" class="text-sm font-medium text-zinc-300 hover:text-orange-500 transition-colors">Realizacje</a>
-          <a href="#kalkulator" class="text-sm font-medium text-zinc-300 hover:text-orange-500 transition-colors">Kalkulator</a>
-          <a href="https://wektor-kodu.vercel.app" target="_blank" class="text-sm font-medium text-zinc-300 hover:text-teal-400 transition-colors flex items-center gap-1">
-            Software
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-            </svg>
-          </a>
-        </div>
+    <div class="hidden md:flex gap-8 items-center">
+      <a href="#oferta" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Oferta</a>
+      <a href="#technologia" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Technologia</a>
+      <a href="#realizacje" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Realizacje</a>
+      <a href="#kalkulator" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Kalkulator</a>
+      
+      <a href="https://wektor-kodu.vercel.app" target="_blank" class="flex items-center gap-2 text-sm text-zinc-400 hover:text-teal-400 transition-colors border-l border-white/10 pl-6">
+        Software
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      </a>
 
-        <div class="hidden md:flex items-center space-x-4">
-          <a href="#kontakt" class="px-5 py-2.5 bg-orange-700 hover:bg-orange-600 active:bg-orange-800 active:scale-95 text-white text-sm font-bold rounded-lg transition-all shadow-lg shadow-orange-500/20">
-            Kontakt
-          </a>
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <button id="menu-btn" class="md:hidden text-zinc-300 hover:text-white focus:outline-none p-2 z-50 relative" aria-label="Otwórz menu nawigacyjne">
-          <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 transition-transform duration-300">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-          <svg id="icon-close" class="w-8 h-8 absolute top-2 left-2 opacity-0 scale-50 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-      </div>
-
-  <div id="mobile-menu" class="fixed inset-0 z-[100] bg-zinc-950/95 backdrop-blur-xl hidden flex flex-col items-center justify-center transition-opacity duration-300 opacity-0">
-        <nav class="flex flex-col items-center space-y-8 text-center p-4">
-            <a href="#oferta" class="mobile-link text-3xl font-bold text-zinc-300 hover:text-orange-500 transition-colors">Oferta</a>
-            <a href="#technologia" class="mobile-link text-3xl font-bold text-zinc-300 hover:text-orange-500 transition-colors">Technologia</a>
-            <a href="#realizacje" class="mobile-link text-3xl font-bold text-zinc-300 hover:text-orange-500 transition-colors">Realizacje</a>
-            <a href="#kalkulator" class="mobile-link text-3xl font-bold text-zinc-300 hover:text-orange-500 transition-colors">Kalkulator</a>
-            <a href="https://wektor-kodu.vercel.app" target="_blank" class="mobile-link text-2xl font-medium text-zinc-400 hover:text-teal-400 transition-colors flex items-center gap-2 justify-center">
-              Software
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-              </svg>
-            </a>
-            
-            <div class="pt-8">
-              <a href="#kontakt" class="mobile-link px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white text-xl font-bold rounded-xl shadow-lg shadow-orange-500/20 transition-all">
-                Kontakt
-              </a>
-            </div>
-        </nav>
+      <a href="#kontakt" class="px-5 py-2.5 bg-orange-700 hover:bg-orange-600 text-white text-sm font-bold rounded-lg transition-colors shadow-lg shadow-orange-900/20">
+        DARMOWY AUDYT
+      </a>
     </div>
+
+    <button id="menu-btn" class="md:hidden p-2 text-white focus:outline-none relative z-50" aria-label="Otwórz menu">
+      <svg id="icon-open" class="w-8 h-8 transition-all duration-300 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      <svg id="icon-close" class="w-8 h-8 absolute top-2 left-2 transition-all duration-300 transform opacity-0 scale-50 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="fixed inset-0 z-40 bg-zinc-950 flex flex-col items-center justify-center transition-all duration-300 ease-in-out translate-x-full opacity-0 pointer-events-none h-[100dvh] w-screen">
+    
+    <nav class="flex flex-col items-center gap-8 w-full px-6">
+      <a href="#oferta" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Oferta</a>
+      <a href="#technologia" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Technologia</a>
+      <a href="#realizacje" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Realizacje</a>
+      <a href="#kalkulator" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Kalkulator</a>
+      <a href="#faq" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">FAQ</a>
+
+      <div class="w-20 h-px bg-zinc-800 my-2"></div>
+
+      <a href="https://wektor-kodu.vercel.app" target="_blank" class="text-xl text-teal-400 hover:text-teal-300 flex items-center gap-2">
+        Wektor Kodu (IT)
+      </a>
+
+      <a href="#kontakt" class="mobile-link mt-6 px-8 py-4 bg-orange-700 text-white text-xl font-bold rounded-xl w-full text-center max-w-xs shadow-orange-900/20">
+        Skonsultuj Projekt
+      </a>
     </nav>
   </div>
 </nav>
@@ -65,60 +57,51 @@
   const menu = document.getElementById('mobile-menu');
   const iconOpen = document.getElementById('icon-open');
   const iconClose = document.getElementById('icon-close');
-  const mobileLinks = menu.querySelectorAll('a');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
   let isOpen = false;
 
-  function toggleMenuState() {
+  function toggleMenu() {
     isOpen = !isOpen;
-    console.log('Stan menu:', isOpen ? 'Otwarte' : 'Zamknięte');
     
     if (isOpen) {
-      menu.classList.remove('translate-x-full');
-      document.body.style.overflow = 'hidden'; // LOCK
+      // Otwieranie
+      menu.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
+      menu.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = 'hidden'; // Blokada scrolla
+      
+      // Ikony
+      iconOpen.classList.add('opacity-0', 'rotate-90');
+      iconClose.classList.remove('opacity-0', 'scale-50', 'rotate-45');
+      iconClose.classList.add('opacity-100', 'scale-100', 'rotate-0');
     } else {
-      menu.classList.add('translate-x-full');
-      document.body.style.overflow = ''; // UNLOCK
-    }
-    
-    // Obsługa ikon
-    if(isOpen) {
-        iconOpen.classList.add('opacity-0', 'rotate-90');
-        iconClose.classList.remove('opacity-0', 'scale-50');
-        iconClose.classList.add('rotate-0', 'scale-100');
-    } else {
-        iconOpen.classList.remove('opacity-0', 'rotate-90');
-        iconClose.classList.add('opacity-0', 'scale-50');
-        iconClose.classList.remove('rotate-0', 'scale-100');
+      // Zamykanie
+      menu.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+      menu.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = ''; // Odblokowanie scrolla
+      
+      // Ikony
+      iconOpen.classList.remove('opacity-0', 'rotate-90');
+      iconClose.classList.add('opacity-0', 'scale-50', 'rotate-45');
+      iconClose.classList.remove('opacity-100', 'scale-100', 'rotate-0');
     }
   }
 
   function handleLinkClick(e) {
     if (!isOpen) return;
     e.preventDefault();
-    
     const targetId = this.getAttribute('href');
-    console.log('1. Kliknięto link mobilny:', targetId);
-
-    // KROK 1: Odblokuj scroll i zamknij menu
-    toggleMenuState();
-    console.log('2. Menu zamknięte, scroll odblokowany');
-
     const targetElement = document.querySelector(targetId);
+
+    toggleMenu(); // 1. Zamknij menu
+
     if (targetElement) {
-        // KROK 2: Poczekaj 350ms (niech menu zjedzie) i przewiń
+        // 2. Poczekaj na koniec animacji (300ms) i przewiń
         setTimeout(() => {
-             console.log('3. Wykonuję przewinięcie do:', targetId);
-             targetElement.scrollIntoView({
-               behavior: 'smooth',
-               block: 'start'
-             });
+             targetElement.scrollIntoView({ behavior: 'smooth' });
         }, 350);
-    } else if (targetId.startsWith('http')) {
-        // Obsługa linków zewnętrznych (np. Wektor Kodu)
-        window.open(targetId, '_blank');
     }
   }
 
-  btn.addEventListener('click', toggleMenuState);
+  btn.addEventListener('click', toggleMenu);
   mobileLinks.forEach(link => link.addEventListener('click', handleLinkClick));
 </script>
