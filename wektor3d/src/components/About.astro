@@ -1,6 +1,7 @@
 
 ---
 import { Image } from 'astro:assets';
+import LogoIcon from './LogoIcon.astro';
 ---
 
 <section class="py-24 bg-gradient-to-b from-zinc-900 to-zinc-950 text-white relative overflow-hidden fade-in-section">
@@ -9,13 +10,14 @@ import { Image } from 'astro:assets';
       
       <!-- Text Column -->
       <div class="space-y-8 order-2 md:order-1">
-        <div class="flex items-center gap-4 mb-2">
-          <div class="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center text-orange-500 shadow-lg shadow-orange-900/10">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-7 h-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
-            </svg>
+        <div class="flex items-center gap-5 mb-6">
+          <LogoIcon class="w-16 h-16" />
+          <div class="flex flex-col justify-center">
+             <h3 class="text-2xl md:text-3xl font-bold text-white leading-none mb-1">
+               <span class="text-orange-500">Wektor Kodu</span>
+             </h3>
+             <p class="text-base md:text-lg text-zinc-400 leading-none">Technologia i Precyzja</p>
           </div>
-          <span class="text-zinc-500 font-mono text-sm tracking-wider uppercase">Wektor Kodu</span>
         </div>
 
         <h2 class="text-3xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-b from-white via-zinc-200 to-zinc-500 font-bold tracking-tight leading-tight">
