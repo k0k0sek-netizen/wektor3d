@@ -15,7 +15,7 @@ const features = [
         <!-- Glow Effect -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-orange-500/10 blur-[80px] rounded-full pointer-events-none"></div>
         
-        <div id="tech-interactive-image" class="relative bg-zinc-900 border border-zinc-800 rounded-2xl aspect-square flex items-center justify-center overflow-hidden shadow-2xl group select-none touch-manipulation cursor-pointer transition-transform duration-500 tap-highlight-transparent [&.active]:scale-105 [&.active]:shadow-2xl [&.active]:shadow-orange-500/20">
+        <div id="tech-interactive-image" class="relative bg-zinc-900 border border-zinc-800 rounded-2xl aspect-square flex items-center justify-center overflow-hidden shadow-2xl group select-none touch-manipulation cursor-pointer transition-transform duration-500 tap-highlight-transparent js-touch-card [.active_&]:scale-105 [.active_&]:shadow-2xl [.active_&]:shadow-orange-500/20">
           <Image 
             src="/bambu.webp" 
             alt="wydruk wysokiej jakości" 
@@ -56,22 +56,3 @@ const features = [
     </div>
   </div>
 </section>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const techImg = document.getElementById('tech-interactive-image');
-
-    if (techImg) {
-      techImg.addEventListener('click', (e) => {
-        techImg.classList.toggle('active');
-        e.stopPropagation();
-      });
-
-      document.body.addEventListener('click', (e) => {
-        if (e.target !== techImg && !techImg.contains(e.target)) {
-          techImg.classList.remove('active');
-        }
-      });
-    }
-  });
-</script>

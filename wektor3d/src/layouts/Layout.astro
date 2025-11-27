@@ -62,6 +62,41 @@ const { title } = Astro.props;
 				});
 			});
 		</script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Znajdź wszystkie interaktywne karty na stronie
+        const touchCards = document.querySelectorAll('.js-touch-card');
+
+        touchCards.forEach(card => {
+          card.addEventListener('click', (e) => {
+            // Ignoruj kliknięcia w linki/przyciski wewnątrz karty (żeby dało się w nie kliknąć)
+            if ((e.target as HTMLElement).tagName === 'A' || (e.target as HTMLElement).closest('a') || (e.target as HTMLElement).tagName === 'BUTTON') {
+                return;
+            }
+
+            // 1. Sprawdź czy karta jest już aktywna
+            const isAlreadyActive = card.classList.contains('active');
+
+            // 2. Wyłącz wszystkie inne karty na całej stronie
+            touchCards.forEach(c => c.classList.remove('active'));
+
+            // 3. Przełącz klikniętą (jeśli nie była aktywna -> włącz)
+            if (!isAlreadyActive) {
+              card.classList.add('active');
+            }
+            
+            e.stopPropagation();
+          });
+        });
+
+        // Kliknięcie w tło czyści wszystko
+        document.body.addEventListener('click', (e) => {
+          if (!(e.target as HTMLElement).closest('.js-touch-card')) {
+            touchCards.forEach(c => c.classList.remove('active'));
+          }
+        });
+      });
+    </script>
 	</body>
 </html>
 
