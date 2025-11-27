@@ -48,7 +48,7 @@ const materials = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {materials.map((material) => (
-        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-zinc-700 [&.is-active]:border-zinc-700 hover:border-orange-500 [&.is-active]:border-orange-500 hover:scale-105 [&.is-active]:scale-105 transition-all duration-300 group select-none touch-manipulation no-callout material-card">
+        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-zinc-700 [&.is-active]:border-zinc-700 hover:border-orange-500 [&.is-active]:border-orange-500 hover:scale-105 [&.is-active]:scale-105 transition-all duration-300 group select-none touch-manipulation no-callout material-card cursor-pointer tap-highlight-transparent">
           <div class={`w-12 h-1 rounded-full ${material.color} mb-6 group-hover:w-24 group-[.is-active]:w-24 transition-all duration-300`}></div>
           
           <h3 class="text-xl font-bold mb-3">{material.name}</h3>
@@ -78,26 +78,22 @@ const materials = [
 </style>
 
 <script>
-  const matSection = document.querySelector('#materials') || document.currentScript?.closest('section');
-  if (matSection) {
-    const cards = matSection.querySelectorAll('.material-card, .group'); // Szukamy kart
+  const materialCards = document.querySelectorAll('#materials .group'); // Zakładamy, że sekcja ma id="materials"
 
-    cards.forEach(card => {
-      card.addEventListener('click', (e) => {
-        // 1. Usuń aktywność ze wszystkich innych
-        cards.forEach(c => {
-          if (c !== card) c.classList.remove('is-active');
-        });
-        // 2. Przełącz klikniętą
-        card.classList.toggle('is-active');
+  materialCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // 1. Wyłącz inne karty (żeby świeciła się tylko jedna)
+      materialCards.forEach(c => {
+        if (c !== card) c.classList.remove('is-active');
       });
+      // 2. Przełącz klikniętą
+      card.classList.toggle('is-active');
+      e.stopPropagation(); // Ważne!
     });
+  });
 
-    // Zamknij po kliknięciu w tło
-    matSection.addEventListener('click', (e) => {
-      if (!(e.target as HTMLElement).closest('.material-card') && !(e.target as HTMLElement).closest('.group')) {
-        cards.forEach(c => c.classList.remove('is-active'));
-      }
-    });
-  }
+  // Kliknięcie w tło wyłącza wszystko
+  document.addEventListener('click', () => {
+     materialCards.forEach(c => c.classList.remove('is-active'));
+  });
 </script>
