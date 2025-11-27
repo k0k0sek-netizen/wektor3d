@@ -48,8 +48,8 @@ const materials = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {materials.map((material) => (
-        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-zinc-700 [&.is-active]:border-zinc-700 hover:border-orange-500 [&.is-active]:border-orange-500 hover:scale-105 [&.is-active]:scale-105 transition-all duration-300 group select-none touch-manipulation no-callout material-card cursor-pointer tap-highlight-transparent">
-          <div class={`w-12 h-1 rounded-full ${material.color} mb-6 group-hover:w-24 group-[.is-active]:w-24 transition-all duration-300`}></div>
+        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-zinc-700 [&.active]:border-zinc-700 hover:border-orange-500 [&.active]:border-orange-500 hover:scale-105 [&.active]:scale-105 transition-all duration-300 group select-none touch-manipulation no-callout js-material-card cursor-pointer tap-highlight-transparent">
+          <div class={`w-12 h-1 rounded-full ${material.color} mb-6 group-hover:w-24 group-[.active]:w-24 transition-all duration-300`}></div>
           
           <h3 class="text-xl font-bold mb-3">{material.name}</h3>
           <p class="text-zinc-400 text-sm mb-6 leading-relaxed min-h-[60px]">
@@ -78,22 +78,34 @@ const materials = [
 </style>
 
 <script>
-  const materialCards = document.querySelectorAll('#materials .group'); // Zakładamy, że sekcja ma id="materials"
+  // Czekamy na załadowanie DOM
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.js-material-card');
 
-  materialCards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      // 1. Wyłącz inne karty (żeby świeciła się tylko jedna)
-      materialCards.forEach(c => {
-        if (c !== card) c.classList.remove('is-active');
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Jeśli to link, nie blokuj, ale tu raczej są divy
+        
+        // 1. Czy ta karta jest już aktywna?
+        const isAlreadyActive = card.classList.contains('active');
+
+        // 2. Wyłącz wszystkie karty
+        cards.forEach(c => c.classList.remove('active'));
+
+        // 3. Jeśli nie była aktywna, włącz ją
+        if (!isAlreadyActive) {
+          card.classList.add('active');
+        }
+        
+        e.stopPropagation();
       });
-      // 2. Przełącz klikniętą
-      card.classList.toggle('is-active');
-      e.stopPropagation(); // Ważne!
     });
-  });
 
-  // Kliknięcie w tło wyłącza wszystko
-  document.addEventListener('click', () => {
-     materialCards.forEach(c => c.classList.remove('is-active'));
+    // Kliknięcie w tło czyści stan
+    document.body.addEventListener('click', (e) => {
+      if (!e.target.closest('.js-material-card')) {
+        cards.forEach(c => c.classList.remove('active'));
+      }
+    });
   });
 </script>
