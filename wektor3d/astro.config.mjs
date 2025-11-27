@@ -9,6 +9,6 @@ export default defineConfig({
     service: { entrypoint: 'astro/assets/services/sharp' }
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [/** @type {any} */ (tailwindcss())],
   },
 });
