@@ -1,0 +1,29 @@
+---
+// Props pozwalają na opcjonalną zmianę rozmiaru, domyślnie w-11 h-11
+const { class: className = "w-11 h-11" } = Astro.props;
+---
+
+<div class={`flex items-center justify-center ${className} bg-zinc-800/80 rounded-2xl border border-white/5 logo-anim transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-zinc-700 group-hover:border-orange-500/30 group-active:scale-95 group-active:bg-zinc-800`}>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-500 w-[60%] h-[60%] transition-transform group-hover:rotate-3">
+    <path d="m18 16 4-4-4-4"/>
+    <path d="m6 8-4 4 4 4"/>
+    <path d="m14.5 4-5 16"/>
+  </svg>
+</div>
+
+<style>
+  @keyframes periodic-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+    3% { transform: scale(1.05); box-shadow: 0 0 15px 0px rgba(249, 115, 22, 0.3); border-color: rgba(249, 115, 22, 0.4); }
+    6% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+  }
+
+  .logo-anim {
+    animation: periodic-pulse 6s ease-in-out infinite;
+  }
+
+  /* Wyłącz pulsowanie podczas hovera, żeby nie gryzło się z interakcją */
+  :global(.group:hover) .logo-anim {
+    animation: none;
+  }
+</style>
