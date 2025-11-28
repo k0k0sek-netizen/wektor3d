@@ -1,64 +1,65 @@
-<div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-zinc-900/95 backdrop-blur-md border-t border-zinc-700 p-6 z-[100] translate-y-full transition-transform duration-500 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4 hidden">
-  <div class="text-zinc-300 text-sm md:text-base">
+<div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-md border-t border-zinc-800 p-4 md:p-6 z-[100] translate-y-full transition-transform duration-500 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4 hidden">
+  <div class="text-zinc-300 text-sm max-w-3xl">
     <p>
-      🍪 <strong>Dbam o Twoją prywatność.</strong> Używam plików cookies tylko do analizy ruchu (Google Analytics), aby ulepszać stronę. 
-      <a href="/polityka-prywatnosci" class="text-orange-500 hover:text-white underline">Czytaj więcej</a>.
+      🍪 <strong>Szanuję Twoją prywatność.</strong> Używam plików cookies i Google Tag Manager tylko do analizy ruchu, aby ulepszać stronę. Nie śledzę Cię marketingowo bez Twojej zgody.
+      <a href="/polityka-prywatnosci" class="text-orange-500 hover:text-white underline ml-1">Polityka Prywatności</a>.
     </p>
   </div>
-  <div class="flex gap-4">
-    <button id="cookie-reject" class="px-4 py-2 border border-zinc-600 text-zinc-300 rounded-lg hover:bg-zinc-800 hover:text-white transition-colors text-sm font-medium">
-      Odrzuć
+  <div class="flex gap-3 shrink-0">
+    <button id="cookie-reject" class="px-4 py-2 border border-zinc-700 text-zinc-400 rounded-lg hover:bg-zinc-800 hover:text-white transition-colors text-sm font-medium">
+      Tylko niezbędne
     </button>
-    <button id="cookie-accept" class="px-6 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded-lg transition-colors text-sm font-bold shadow-lg shadow-orange-900/20">
+    <button id="cookie-accept" class="px-6 py-2 bg-orange-700 hover:bg-orange-600 text-white rounded-lg transition-colors text-sm font-bold shadow-lg shadow-orange-900/20">
       Akceptuję
     </button>
   </div>
 </div>
 
-<script>
-  // Funkcja ładująca Google Tag Manager (GTM)
+<script is:inline>
+  // Funkcja ładująca Twój GTM (GTM-PGC33FGZ)
   function loadGTM() {
-    // Tutaj użytkownik wstawi swój ID: GTM-XXXXXXX
-    const gtmId = 'GTM-PLACEHOLDER'; 
-    
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer',gtmId);
+    })(window,document,'script','dataLayer','GTM-PGC33FGZ'); // Twój ID
     
-    console.log('GTM Loaded via Consent');
+    console.log('GTM (Analityka) załadowany po zgodzie.');
   }
 
+  // Logika Banera
   const banner = document.getElementById('cookie-banner');
   const acceptBtn = document.getElementById('cookie-accept');
   const rejectBtn = document.getElementById('cookie-reject');
+  const storageKey = 'wektor3d_cookie_consent';
 
-  // Sprawdź czy użytkownik już podjął decyzję
-  const consent = localStorage.getItem('cookie_consent');
+  // Sprawdź decyzję (localStorage)
+  const consent = localStorage.getItem(storageKey);
 
   if (!consent) {
-    // Pokaż baner z opóźnieniem (dla estetyki)
+    // Brak decyzji -> Pokaż baner (z małym opóźnieniem dla animacji)
     banner.classList.remove('hidden');
     setTimeout(() => {
       banner.classList.remove('translate-y-full');
-    }, 500);
+    }, 1000);
   } else if (consent === 'granted') {
-    loadGTM(); // Załaduj GTM od razu, jeśli jest zgoda
+    // Zgoda już była -> Ładuj GTM od razu
+    loadGTM();
   }
 
-  // Obsługa Akceptacji
+  // Kliknięcie Akceptuj
   acceptBtn.addEventListener('click', () => {
-    localStorage.setItem('cookie_consent', 'granted');
-    banner.classList.add('translate-y-full');
+    localStorage.setItem(storageKey, 'granted');
+    banner.classList.add('translate-y-full'); // Schowaj
     setTimeout(() => banner.classList.add('hidden'), 500);
     loadGTM(); // Odpal skrypt
   });
 
-  // Obsługa Odrzucenia
+  // Kliknięcie Odrzuć
   rejectBtn.addEventListener('click', () => {
-    localStorage.setItem('cookie_consent', 'denied');
+    localStorage.setItem(storageKey, 'denied');
     banner.classList.add('translate-y-full');
     setTimeout(() => banner.classList.add('hidden'), 500);
+    // Nie ładujemy GTM
   });
 </script>
