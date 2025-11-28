@@ -54,7 +54,14 @@ const { class: className = "w-11 h-11" } = Astro.props;
   }
 
   .logo-anim {
+    /* Animacja trwa 6s, nieskończona pętla */
     animation: periodic-pulse 6s ease-in-out infinite;
+    
+    /* NOWOŚĆ: Startuje dopiero po 3 sekundach od załadowania strony */
+    animation-delay: 3s; 
+    
+    /* NOWOŚĆ: Informuje przeglądarkę, co się będzie zmieniać (optymalizacja GPU) */
+    will-change: transform, box-shadow, border-color;
   }
 
   /* Wyłącz pulsowanie podczas hovera, żeby nie gryzło się z interakcją */
