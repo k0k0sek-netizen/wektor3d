@@ -48,15 +48,19 @@ const materials = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {materials.map((material) => (
-        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-zinc-700 [&.active]:border-zinc-700 hover:border-orange-500 [&.active]:border-orange-500 hover:scale-105 [&.active]:scale-105 transition-all duration-300 group select-none touch-manipulation no-callout js-touch-card cursor-pointer tap-highlight-transparent">
-          <div class={`w-12 h-1 rounded-full ${material.color} mb-6 group-hover:w-24 group-[.active]:w-24 transition-all duration-300`}></div>
+        <div class="group relative overflow-hidden bg-zinc-900 border border-zinc-800 p-8 rounded-2xl transition-all duration-300 hover:border-orange-500/50 [.active_&]:border-orange-500 hover:-translate-y-1 active:scale-[0.98] active:translate-y-0 [.active_&]:scale-[0.98] [.active_&]:translate-y-0 select-none touch-manipulation no-callout js-touch-card cursor-pointer tap-highlight-transparent">
+          <div class="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 [.active_&]:opacity-100"
+               style="background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(249, 115, 22, 0.15), transparent 40%); z-index: 0;">
+          </div>
+
+          <div class={`w-12 h-1 rounded-full ${material.color} mb-6 group-hover:w-24 group-[.active]:w-24 transition-all duration-300 relative z-10`}></div>
           
-          <h3 class="text-xl font-bold mb-3">{material.name}</h3>
-          <p class="text-zinc-400 text-sm mb-6 leading-relaxed min-h-[60px]">
+          <h3 class="text-xl font-bold mb-3 relative z-10">{material.name}</h3>
+          <p class="text-zinc-400 text-sm mb-6 leading-relaxed min-h-[60px] relative z-10">
             {material.description}
           </p>
           
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-2 relative z-10">
             {material.features.map((feature) => (
               <span class="px-3 py-1 bg-zinc-800 rounded-full text-xs text-zinc-300 border border-zinc-700">
                 {feature}
@@ -76,3 +80,18 @@ const materials = [
     user-select: none;
   }
 </style>
+
+<script>
+  const matCards = document.querySelectorAll('#materials .group');
+
+  matCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const target = card as HTMLElement;
+      const rect = target.getBoundingClientRect();
+      const x = (e as MouseEvent).clientX - rect.left;
+      const y = (e as MouseEvent).clientY - rect.top;
+      target.style.setProperty('--mouse-x', `${x}px`);
+      target.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+</script>
