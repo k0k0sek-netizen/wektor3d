@@ -3,10 +3,11 @@ const { class: className = "w-11 h-11" } = Astro.props;
 ---
 
 <div class={`relative group ${className}`}>
-  <!-- 1. Warstwa NEONU (Tło z cieniem) - Animujemy tylko jej Opacity -->
-  <div class="absolute inset-0 rounded-2xl bg-orange-500/20 opacity-0 neon-pulse transition-opacity duration-300"></div>
+  <!-- 1. Warstwa NEONU (Statyczny cień, animowana tylko przezroczystość) -->
+  <!-- Używamy will-change-opacity dla wydajności -->
+  <div class="absolute inset-0 rounded-2xl bg-orange-500/0 neon-layer transition-opacity duration-300"></div>
   
-  <!-- 2. Główny Kontener (Ikona) - Animujemy tylko Scale -->
+  <!-- 2. Główny Kontener (Ikona) - Animowana tylko Skala -->
   <div class="relative flex items-center justify-center w-full h-full bg-zinc-800/90 rounded-2xl ring-1 ring-inset ring-white/10 icon-beat transition-all duration-300 group-hover:bg-zinc-700 group-hover:scale-110 group-active:scale-95">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-500 w-[60%] h-[60%] transition-transform group-hover:rotate-3">
       <path d="m18 16 4-4-4-4"/>
@@ -17,44 +18,48 @@ const { class: className = "w-11 h-11" } = Astro.props;
 </div>
 
 <style>
-  /* Definicja statycznego wyglądu neonu (żeby przeglądarka nie liczyła go co klatkę) */
-  .neon-pulse {
+  /* Stylizacja warstwy neonu - Cień jest stały, nie animowany w keyframes! */
+  .neon-layer {
     box-shadow: 
       0 0 15px 2px rgba(249, 115, 22, 0.6),
       0 0 30px 10px rgba(249, 115, 22, 0.2);
-    /* Animacja Opacity - tania dla CPU */
+    border: 1px solid rgba(249, 115, 22, 0.8);
+    
+    /* Animujemy tylko widoczność tej warstwy */
     animation: neon-fade 6s ease-in-out infinite;
-    animation-delay: 3s; /* Opóźnienie startu */
+    animation-delay: 3s; /* Opóźnienie dla Lighthouse */
+    opacity: 0; /* Domyślnie niewidoczna */
     will-change: opacity;
   }
 
   .icon-beat {
-    /* Animacja Skali - tania dla CPU */
+    /* Animujemy tylko skalę */
     animation: heartbeat-scale 6s ease-in-out infinite;
     animation-delay: 3s;
     will-change: transform;
   }
 
-  /* Kluczowe klatki dla przezroczystości neonu */
+  /* Keyframes - TYLKO OPACITY (GPU Friendly) */
   @keyframes neon-fade {
-    0%, 3%, 13%, 100% { opacity: 0; } /* Cisza */
-    4% { opacity: 1; }  /* BŁYSK (LUB) */
-    8% { opacity: 0.2; }
-    12% { opacity: 0.6; } /* BŁYSK (DUB) */
+    0%, 3%, 13%, 100% { opacity: 0; }
+    4% { opacity: 1; }  /* Błysk */
+    8% { opacity: 0; }
+    12% { opacity: 0.5; } /* Echo */
   }
 
-  /* Kluczowe klatki dla bicia serca (skala) */
+  /* Keyframes - TYLKO TRANSFORM (GPU Friendly) */
   @keyframes heartbeat-scale {
-    0%, 3%, 13%, 100% { transform: scale(1); border-color: rgba(255,255,255,0.1); }
-    4% { transform: scale(1.08); border-color: rgba(249,115,22,0.8); } /* LUB */
+    0%, 3%, 13%, 100% { transform: scale(1); }
+    4% { transform: scale(1.08); }
     8% { transform: scale(1); }
-    12% { transform: scale(1.03); } /* DUB */
+    12% { transform: scale(1.03); }
   }
 
-  /* Wyłącz animacje przy hover (żeby nie psuć interakcji) */
-  :global(.group:hover) .neon-pulse,
+  /* Wyłącz przy hover */
+  :global(.group:hover) .neon-layer,
   :global(.group:hover) .icon-beat {
     animation: none;
     opacity: 0;
+    transform: scale(1);
   }
 </style>
