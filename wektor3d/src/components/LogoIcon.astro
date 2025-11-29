@@ -3,13 +3,23 @@
 const { class: className = "w-11 h-11" } = Astro.props;
 ---
 
-<div class={`flex items-center justify-center ${className} bg-zinc-800/80 rounded-2xl ring-1 ring-inset ring-white/10 logo-anim transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-zinc-700 group-hover:border-orange-500/30 group-active:scale-95 group-active:bg-zinc-800`}>
+<div data-logo-anim="true" class={`flex items-center justify-center ${className} bg-zinc-800/80 rounded-2xl ring-1 ring-inset ring-white/10 transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-zinc-700 group-hover:border-orange-500/30 group-active:scale-95 group-active:bg-zinc-800`}>
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-500 w-[60%] h-[60%] transition-transform group-hover:rotate-3">
     <path d="m18 16 4-4-4-4"/>
     <path d="m6 8-4 4 4 4"/>
     <path d="m14.5 4-5 16"/>
   </svg>
 </div>
+
+<script>
+  // Czekamy, aż strona się "uspokoi" (3 sekundy)
+  setTimeout(() => {
+    const logos = document.querySelectorAll('[data-logo-anim="true"]');
+    logos.forEach(logo => {
+      logo.classList.add('logo-anim');
+    });
+  }, 3000);
+</script>
 
 <style>
   @keyframes periodic-pulse {
@@ -57,8 +67,8 @@ const { class: className = "w-11 h-11" } = Astro.props;
     /* Animacja trwa 6s, nieskończona pętla */
     animation: periodic-pulse 6s ease-in-out infinite;
     
-    /* KLUCZOWE: Startuje dopiero po 4 sekundach (gdy Lighthouse skończy mierzyć) */
-    animation-delay: 4s; 
+    /* NOWOŚĆ: Startuje dopiero po wstrzyknięciu klasy przez JS */
+    /* animation-delay: 4s; <- USUNIĘTE, bo JS robi opóźnienie */ 
     
     /* Optymalizacja dla przeglądarki */
     will-change: transform, box-shadow, border-color;
