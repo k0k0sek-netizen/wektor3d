@@ -37,11 +37,11 @@
   const consent = localStorage.getItem(storageKey);
 
   if (!consent) {
-    // Brak decyzji -> Pokaż baner (z małym opóźnieniem dla animacji)
+    // Brak decyzji -> Pokaż baner (z dużym opóźnieniem dla Performance fix)
     banner.classList.remove('hidden');
     setTimeout(() => {
       banner.classList.remove('translate-y-full');
-    }, 1000);
+    }, 4000);
   } else if (consent === 'granted') {
     // Zgoda już była -> Ładuj GTM od razu
     loadGTM();
