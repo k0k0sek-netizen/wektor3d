@@ -14,10 +14,9 @@
       </p>
     </div>
 
-    <form action="https://formspree.io/f/mjkzrlay" method="POST" class="space-y-6 bg-zinc-950/50 p-8 rounded-2xl border border-zinc-800 shadow-xl">
+    <form id="contact-form" action="https://formspree.io/f/mjkzrlay" method="POST" class="space-y-6 bg-zinc-950/50 p-8 rounded-2xl border border-zinc-800 shadow-xl">
       
-      <!-- Hidden Redirect & Subject -->
-      <input type="hidden" name="_next" value="https://www.wektor3d.pl/dziekuje" />
+      <!-- Hidden Subject -->
       <input type="hidden" name="_subject" value="Nowy Lead Wektor 3D" />
       
       <!-- Name -->
@@ -109,4 +108,51 @@
 
     </form>
   </div>
+  </div>
 </section>
+
+<script>
+  const form = document.getElementById('contact-form');
+
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault(); // Zatrzymaj standardowe wysyłanie
+      
+      const formData = new FormData(form);
+      const action = form.getAttribute('action');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerText;
+
+      // Zmień tekst przycisku na "Wysyłanie..."
+      submitBtn.innerText = 'Wysyłanie...';
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // 1. Wyczyść formularz
+          form.reset();
+          
+          // 2. Przekieruj na stronę podziękowania
+          window.location.href = '/dziekuje';
+        } else {
+          alert('Wystąpił błąd podczas wysyłania. Spróbuj ponownie.');
+          submitBtn.innerText = originalBtnText;
+          submitBtn.disabled = false;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Wystąpił błąd sieci. Sprawdź połączenie.');
+        submitBtn.innerText = originalBtnText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+</script>
