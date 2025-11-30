@@ -14,17 +14,17 @@ import LogoIcon from './LogoIcon.astro';
     </a>
 
     <div class="hidden md:flex gap-8 items-center">
-      <a href="#oferta" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Oferta</a>
-      <a href="#technologia" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Technologia</a>
-      <a href="#realizacje" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Realizacje</a>
-      <a href="#kalkulator" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Kalkulator</a>
+      <a href="/#oferta" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Oferta</a>
+      <a href="/#technologia" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Technologia</a>
+      <a href="/#realizacje" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Realizacje</a>
+      <a href="/#kalkulator" class="text-sm font-medium text-zinc-300 hover:text-white transition-colors">Kalkulator</a>
       
       <a href="https://wektor-kodu.vercel.app" target="_blank" class="flex items-center gap-2 text-sm text-zinc-400 hover:text-teal-400 transition-colors border-l border-white/10 pl-6">
         Software
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
       </a>
 
-      <a href="#kontakt" class="px-5 py-2.5 bg-orange-700 hover:bg-orange-600 text-white text-sm font-bold rounded-lg transition-colors shadow-lg shadow-orange-900/20">
+      <a href="/#kontakt" class="px-5 py-2.5 bg-orange-700 hover:bg-orange-600 text-white text-sm font-bold rounded-lg transition-colors shadow-lg shadow-orange-900/20">
         DARMOWY AUDYT
       </a>
     </div>
@@ -38,11 +38,11 @@ import LogoIcon from './LogoIcon.astro';
   <div id="mobile-menu" class="fixed inset-0 z-40 bg-zinc-950 flex flex-col items-center justify-center transition-all duration-300 ease-in-out translate-x-full opacity-0 pointer-events-none h-[100dvh] w-screen">
     
     <nav class="flex flex-col items-center gap-8 w-full px-6">
-      <a href="#oferta" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Oferta</a>
-      <a href="#technologia" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Technologia</a>
-      <a href="#realizacje" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Realizacje</a>
-      <a href="#kalkulator" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Kalkulator</a>
-      <a href="#faq" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">FAQ</a>
+      <a href="/#oferta" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Oferta</a>
+      <a href="/#technologia" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Technologia</a>
+      <a href="/#realizacje" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Realizacje</a>
+      <a href="/#kalkulator" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">Kalkulator</a>
+      <a href="/#faq" class="mobile-link text-3xl font-bold text-zinc-400 hover:text-white transition-colors">FAQ</a>
 
       <div class="w-20 h-px bg-zinc-800 my-2"></div>
 
@@ -50,7 +50,7 @@ import LogoIcon from './LogoIcon.astro';
         Wektor Kodu (IT)
       </a>
 
-      <a href="#kontakt" class="mobile-link mt-6 px-8 py-4 bg-orange-700 text-white text-xl font-bold rounded-xl w-full text-center max-w-xs shadow-orange-900/20">
+      <a href="/#kontakt" class="mobile-link mt-6 px-8 py-4 bg-orange-700 text-white text-xl font-bold rounded-xl w-full text-center max-w-xs shadow-orange-900/20">
         Skonsultuj Projekt
       </a>
     </nav>
@@ -62,29 +62,23 @@ import LogoIcon from './LogoIcon.astro';
   const menu = document.getElementById('mobile-menu');
   const iconOpen = document.getElementById('icon-open');
   const iconClose = document.getElementById('icon-close');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
+  const allLinks = document.querySelectorAll('a[href^="/#"]'); // Wybiera linki kotwic
+
   let isOpen = false;
 
   function toggleMenu() {
     isOpen = !isOpen;
-    
     if (isOpen) {
-      // Otwieranie
       menu.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
       menu.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
-      document.body.style.overflow = 'hidden'; // Blokada scrolla
-      
-      // Ikony
+      document.body.style.overflow = 'hidden';
       iconOpen.classList.add('opacity-0', 'rotate-90');
       iconClose.classList.remove('opacity-0', 'scale-50', 'rotate-45');
       iconClose.classList.add('opacity-100', 'scale-100', 'rotate-0');
     } else {
-      // Zamykanie
       menu.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
       menu.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
-      document.body.style.overflow = ''; // Odblokowanie scrolla
-      
-      // Ikony
+      document.body.style.overflow = '';
       iconOpen.classList.remove('opacity-0', 'rotate-90');
       iconClose.classList.add('opacity-0', 'scale-50', 'rotate-45');
       iconClose.classList.remove('opacity-100', 'scale-100', 'rotate-0');
@@ -92,21 +86,30 @@ import LogoIcon from './LogoIcon.astro';
   }
 
   function handleLinkClick(e) {
-    if (!isOpen) return;
-    e.preventDefault();
-    const targetId = this.getAttribute('href');
-    const targetElement = document.querySelector(targetId);
+    const href = this.getAttribute('href');
+    
+    // Sprawdzamy czy jesteśmy na stronie głównej
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+      e.preventDefault(); // Blokujemy przeładowanie tylko na głównej
+      
+      const targetId = href.replace('/', ''); // Zamienia /#kontakt na #kontakt
+      const targetElement = document.querySelector(targetId);
 
-    toggleMenu(); // 1. Zamknij menu
+      if (isOpen) toggleMenu(); // Zamknij mobile menu jeśli otwarte
 
-    if (targetElement) {
-        // 2. Poczekaj na koniec animacji (300ms) i przewiń
+      if (targetElement) {
+        // Małe opóźnienie dla mobile menu, zero dla desktopu
         setTimeout(() => {
              targetElement.scrollIntoView({ behavior: 'smooth' });
-        }, 350);
+        }, isOpen ? 300 : 0);
+      }
+    } else {
+      // Jesteśmy na podstronie (np. /dziekuje) -> NIE blokujemy zdarzenia.
+      // Przeglądarka sama przeniesie na stronę główną do kotwicy.
+      if (isOpen) toggleMenu();
     }
   }
 
   btn.addEventListener('click', toggleMenu);
-  mobileLinks.forEach(link => link.addEventListener('click', handleLinkClick));
+  allLinks.forEach(link => link.addEventListener('click', handleLinkClick));
 </script>
