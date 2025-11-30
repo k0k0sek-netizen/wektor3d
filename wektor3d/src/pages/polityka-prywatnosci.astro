@@ -7,26 +7,90 @@ import Footer from '../components/Footer.astro';
 <Layout title="Polityka Prywatności - Wektor 3D">
   <Navbar />
   <main class="container mx-auto px-6 py-32 text-zinc-300 max-w-3xl">
-    <h1 class="text-3xl md:text-4xl font-bold text-white mb-8">Polityka Prywatności</h1>
+    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Polityka Prywatności i Plików Cookies</h1>
+    <p class="text-zinc-500 mb-8">Ostatnia aktualizacja: Listopad 2025</p>
     
-    <div class="space-y-8 text-lg leading-relaxed">
+    <div class="space-y-10 text-lg leading-relaxed text-zinc-300">
+      
+      <!-- Sekcja 1: Administrator -->
       <section>
-        <h2 class="text-xl font-bold text-orange-500 mb-2">1. Administrator Danych</h2>
-        <p>Administratorem danych jest <strong>Piotr Kokoszka</strong> (Wektor 3D), prowadzący działalność nierejestrowaną.</p>
+        <h2 class="text-xl font-bold text-orange-500 mb-3 flex items-center gap-2">
+          1. Administrator Danych
+        </h2>
+        <p>
+          Administratorem Twoich danych osobowych jest <strong>Piotr Kokoszka</strong>, prowadzący działalność w formie działalności nierejestrowanej (zgodnie z art. 5 ustawy Prawo przedsiębiorców), pod marką <strong>Wektor 3D</strong>.
+        </p>
+        <p class="mt-2 text-zinc-400 text-base">
+          W sprawach związanych z ochroną danych możesz skontaktować się ze mną, odpowiadając na dowolną wiadomość e-mail otrzymaną w procesie wyceny.
+        </p>
       </section>
 
+      <!-- Sekcja 2: Cookies i Analityka (Rozbudowana) -->
       <section>
-        <h2 class="text-xl font-bold text-orange-500 mb-2">2. Analityka (Cookies)</h2>
-        <p>Ta strona korzysta z <strong>Google Tag Manager</strong> (identyfikator GTM-PGC33FGZ) do anonimowej analizy statystyk odwiedzin. Skrypty te są uruchamiane wyłącznie po kliknięciu przycisku "Akceptuję". Jeśli nie wyraziłeś zgody, żadne dane analityczne nie są pobierane.</p>
+        <h2 class="text-xl font-bold text-orange-500 mb-3 flex items-center gap-2">
+          2. Pliki Cookies i Analityka (Google)
+        </h2>
+        <p>
+          Ta strona wykorzystuje pliki cookies (ciasteczka) w celach analitycznych. Korzystam z narzędzia <strong>Google Analytics 4</strong>, które pomaga mi zrozumieć, w jaki sposób użytkownicy korzystają ze strony (np. które podstrony są najpopularniejsze).
+        </p>
+        <ul class="list-disc pl-6 mt-4 space-y-2 text-base text-zinc-400">
+          <li>
+            <strong>Zgoda:</strong> Skrypty śledzące Google są uruchamiane <u>wyłącznie</u> po kliknięciu przycisku "Akceptuję" na banerze cookies.
+          </li>
+          <li>
+            <strong>Anonimizacja:</strong> Google Analytics zbiera dane w sposób anonimowy (maskowanie adresów IP). Nie jestem w stanie zidentyfikować Twojej tożsamości na podstawie tych danych.
+          </li>
+          <li>
+            <strong>Wycofanie zgody:</strong> Możesz w każdej chwili usunąć pliki cookies ze swojej przeglądarki, co zresetuje Twoje ustawienia.
+          </li>
+        </ul>
       </section>
 
+      <!-- Sekcja 3: Hosting i Logi (Nowość - Wymóg techniczny) -->
       <section>
-        <h2 class="text-xl font-bold text-orange-500 mb-2">3. Dane Kontaktowe</h2>
-        <p>Adres e-mail oraz imię podane w formularzu służą tylko do kontaktu w sprawie wyceny. Nie tworzę list marketingowych ani nie sprzedaję danych.</p>
+        <h2 class="text-xl font-bold text-orange-500 mb-3 flex items-center gap-2">
+          3. Logi Serwera (Hosting)
+        </h2>
+        <p>
+          Korzystanie ze strony wiąże się z przesyłaniem zapytań do serwera, na którym przechowywana jest strona (Vercel Inc.). Każde zapytanie zapisywane jest w logach serwera.
+        </p>
+        <p class="mt-2">
+          Logi obejmują m.in. Twój adres IP, datę i czas serwera, informacje o przeglądarce i systemie operacyjnym. Dane te nie są kojarzone z konkretnymi osobami i są usuwane automatycznie po krótkim okresie. Podstawą prawną jest tu prawnie uzasadniony interes administratora (zapewnienie bezpieczeństwa i stabilności strony).
+        </p>
+      </section>
+
+      <!-- Sekcja 4: Dane z Formularza -->
+      <section>
+        <h2 class="text-xl font-bold text-orange-500 mb-3 flex items-center gap-2">
+          4. Przetwarzanie Danych z Formularza
+        </h2>
+        <p>
+          Wypełniając formularz wyceny, podajesz dobrowolnie swoje dane (imię, e-mail, pliki projektu). Dane te są przetwarzane wyłącznie w celu:
+        </p>
+        <ul class="list-disc pl-6 mt-2 space-y-1 text-base text-zinc-400">
+          <li>Przygotowania darmowej wyceny druku 3D lub projektu.</li>
+          <li>Kontaktu w sprawie realizacji zlecenia.</li>
+          <li>Wystawienia rachunku (dowodu sprzedaży).</li>
+        </ul>
+        <p class="mt-4">
+          Korzystam z usługi <strong>Formspree</strong> do bezpiecznego przesyłania treści formularzy. Twoje dane nie są wykorzystywane do wysyłania spamu ani nie są sprzedawane podmiotom trzecim.
+        </p>
+      </section>
+
+      <!-- Sekcja 5: Podmioty Zewnętrzne (USA) -->
+      <section>
+        <h2 class="text-xl font-bold text-orange-500 mb-3 flex items-center gap-2">
+          5. Odbiorcy Danych (Transfer poza EOG)
+        </h2>
+        <p>
+          W związku z korzystaniem z nowoczesnych usług technologicznych (Google, Vercel, Formspree), Twoje dane mogą być przetwarzane na serwerach znajdujących się w Stanach Zjednoczonych. Podmioty te gwarantują odpowiedni poziom ochrony danych zgodnie ze standardami RODO.
+        </p>
       </section>
       
-      <div class="pt-8 border-t border-zinc-800">
-        <a href="/" class="text-orange-500 hover:text-white font-bold transition-colors">← Powrót do strony głównej</a>
+      <div class="pt-10 mt-10 border-t border-zinc-800">
+        <a href="/" class="inline-flex items-center gap-2 text-orange-500 hover:text-white font-bold transition-colors group">
+          <span class="group-hover:-translate-x-1 transition-transform">←</span> Powrót do strony głównej
+        </a>
       </div>
     </div>
   </main>
