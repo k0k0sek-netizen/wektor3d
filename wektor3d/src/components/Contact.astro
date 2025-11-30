@@ -112,46 +112,43 @@
 </section>
 
 <script>
-  const form = document.getElementById('contact-form');
-  const serviceSelect = document.getElementById('service-type');
-  const linkInput = document.getElementById('model-link');
+  // Funkcja inicjalizująca formularz (musi być wywoływana przy każdym załadowaniu strony)
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    const serviceSelect = document.getElementById('service-type');
+    const linkInput = document.getElementById('model-link');
 
-  // Funkcja sterująca wymagalnością pola Link
-  function toggleLinkRequirement() {
-    if (!serviceSelect || !linkInput) return;
+    // 1. Logika wymagalności pola Link
+    function toggleLinkRequirement() {
+      if (!serviceSelect || !linkInput) return;
 
-    const selected = serviceSelect.value;
-    // Opcje, które WYMAGAJĄ linku
-    const needsLink = ['print', 'link'].includes(selected);
+      const selected = serviceSelect.value;
+      // Lista wartości, które WYMAGAJĄ pliku (sprawdź czy values w HTML są takie same: 'print', 'link')
+      const needsLink = ['print', 'link'].includes(selected);
 
-    if (needsLink) {
-      linkInput.setAttribute('required', 'required');
-      linkInput.placeholder = 'Link do pliku .stl/.3mf (wymagane)...';
-    } else {
-      linkInput.removeAttribute('required');
-      linkInput.placeholder = 'Link do zdjęć uszkodzonej części (opcjonalne)...';
+      if (needsLink) {
+        linkInput.setAttribute('required', 'true');
+        linkInput.placeholder = 'Link do pliku .stl/.3mf (wymagane)...';
+        // Opcjonalnie: Dodaj wizualny wskaźnik wymagalności, jeśli używasz
+      } else {
+        linkInput.removeAttribute('required');
+        linkInput.placeholder = 'Link do zdjęć lub opis (opcjonalne)...';
+      }
     }
-  }
 
-  // Nasłuchuj zmian w liście rozwijanej
-  if (serviceSelect) {
-    serviceSelect.addEventListener('change', toggleLinkRequirement);
-    // Uruchom raz na start (żeby ustawić stan początkowy)
-    toggleLinkRequirement();
-  }
-
-  // Obsługa wysyłania formularza (AJAX)
-  if (form) {
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
+    // 2. Obsługa wysyłania (AJAX)
+    async function handleSubmit(e) {
+      e.preventDefault(); // STOP standardowego wysyłania
       
-      const formData = new FormData(form);
-      const action = form.getAttribute('action');
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn.innerText;
 
+      // Blokada przycisku
       submitBtn.innerText = 'Wysyłanie...';
       submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+      const action = form.getAttribute('action'); // Pobierz link Formspree z atrybutu action
 
       try {
         const response = await fetch(action, {
@@ -163,21 +160,50 @@
         });
 
         if (response.ok) {
-          form.reset();
-          // Przywróć domyślny stan inputa po resecie
-          toggleLinkRequirement();
-          window.location.href = '/dziekuje';
+          // SUKCES
+          form.reset(); 
+          toggleLinkRequirement(); // Reset stanu inputa
+          window.location.href = '/dziekuje'; // Przekierowanie JS
         } else {
-          alert('Wystąpił błąd podczas wysyłania. Spróbuj ponownie.');
+          // BŁĄD FORMSPREE
+          const data = await response.json();
+          if (Object.hasOwn(data, 'errors')) {
+            alert('Błąd: ' + data["errors"].map(error => error["message"]).join(", "));
+          } else {
+            alert('Wystąpił problem z wysłaniem formularza.');
+          }
           submitBtn.innerText = originalBtnText;
           submitBtn.disabled = false;
         }
       } catch (error) {
-        console.error('Error:', error);
-        alert('Wystąpił błąd sieci. Sprawdź połączenie.');
+        // BŁĄD SIECI
+        console.error('Błąd wysyłania:', error);
+        alert('Wystąpił błąd połączenia. Spróbuj ponownie.');
         submitBtn.innerText = originalBtnText;
         submitBtn.disabled = false;
       }
-    });
+    }
+
+    // Podpięcie zdarzeń (z zabezpieczeniem przed duplikacją listenerów)
+    if (serviceSelect) {
+      // Usuń stary listener (jeśli istnieje) i dodaj nowy
+      serviceSelect.removeEventListener('change', toggleLinkRequirement);
+      serviceSelect.addEventListener('change', toggleLinkRequirement);
+      
+      // Uruchom raz na start
+      toggleLinkRequirement();
+    }
+
+    if (form) {
+      form.removeEventListener('submit', handleSubmit);
+      form.addEventListener('submit', handleSubmit);
+    }
   }
+
+  // OBSŁUGA ASTRO VIEW TRANSITIONS
+  // Uruchom przy pierwszym wejściu
+  initContactForm();
+  
+  // Uruchom przy każdym przejściu na nową podstronę (np. powrót z innej sekcji)
+  document.addEventListener('astro:page-load', initContactForm);
 </script>
