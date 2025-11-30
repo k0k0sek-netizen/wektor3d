@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
+import { ClientRouter } from 'astro:transitions';
 
 import CookieBanner from '../components/CookieBanner.astro';
 
@@ -15,6 +16,7 @@ const { title } = Astro.props;
 <html lang="pl">
 	<head>
 		<meta charset="UTF-8" />
+    <ClientRouter />
     <!-- SEO Główne -->
     <title>Wektor 3D | Precyzyjny Druk 3D & Inżynieria Odwrotna</title>
     <meta name="description" content="Profesjonalne usługi druku 3D i projektowania. Odtwarzanie części zamiennych, prototypowanie i małoseryjna produkcja. Sprawdź darmową wycenę online!">
@@ -121,21 +123,22 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-	/* Animacja wejścia dla całej strony */
-	body {
-	  animation: page-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	/* Definicja płynnego przejścia (Cross-fade + Przesunięcie) */
+	::view-transition-old(root) {
+	  animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out;
 	}
 
-	@keyframes page-enter {
-	  0% {
-	    opacity: 0;
-	    transform: translateY(10px);
-	  }
-	  100% {
-	    opacity: 1;
-	    transform: translateY(0);
-	  }
+	::view-transition-new(root) {
+	  /* Wydłużony czas: 0.5s dla wejścia, z lekkim opóźnieniem */
+	  animation: 
+	    300ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+	    500ms cubic-bezier(0.22, 1, 0.36, 1) both slide-from-bottom;
 	}
+
+	/* Definicje klatek kluczowych */
+	@keyframes fade-in { from { opacity: 0; } }
+	@keyframes fade-out { to { opacity: 0; } }
+	@keyframes slide-from-bottom { from { transform: translateY(30px); } }
 
 	.fade-in-section {
 		opacity: 0;
