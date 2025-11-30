@@ -14,7 +14,7 @@
       </p>
     </div>
 
-    <form id="contact-form" action="https://formspree.io/f/mjkzrlay" method="POST" class="space-y-6 bg-zinc-950/50 p-8 rounded-2xl border border-zinc-800 shadow-xl">
+    <form id="contact-form" action="https://formspree.io/f/mjkzrlay" class="space-y-6 bg-zinc-950/50 p-8 rounded-2xl border border-zinc-800 shadow-xl">
       
       <!-- Hidden Subject -->
       <input type="hidden" name="_subject" value="Nowy Lead Wektor 3D" />
@@ -45,25 +45,25 @@
 
       <!-- Order Type -->
       <div>
-        <label for="order-type" class="block text-sm font-medium text-zinc-300 mb-2">Rodzaj zgłoszenia</label>
+        <label for="service-type" class="block text-sm font-medium text-zinc-300 mb-2">Rodzaj zgłoszenia</label>
         <select 
-          id="order-type" 
-          name="order-type" 
+          id="service-type" 
+          name="service" 
           class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors appearance-none"
         >
-          <option value="gotowy-plik">Mam gotowy plik do druku</option>
-          <option value="link-model">Posiadam link do modelu</option>
-          <option value="inzynieria-odwrotna">Zlecenie inżynierii odwrotnej</option>
-          <option value="inne">Inne / Oprzyrządowanie</option>
+          <option value="print">Mam gotowy plik do druku</option>
+          <option value="link">Posiadam link do modelu</option>
+          <option value="reverse">Zlecenie inżynierii odwrotnej</option>
+          <option value="other">Inne / Oprzyrządowanie</option>
         </select>
       </div>
 
       <!-- Link to Model -->
       <div>
-        <label for="link" class="block text-sm font-medium text-zinc-300 mb-2">Link do modelu</label>
+        <label for="model-link" class="block text-sm font-medium text-zinc-300 mb-2">Link do modelu</label>
         <input 
           type="text" 
-          id="link" 
+          id="model-link" 
           name="link" 
           required
           placeholder="Link do pliku (np. Google Drive, WeTransfer, Dropbox)"
@@ -113,17 +113,43 @@
 
 <script>
   const form = document.getElementById('contact-form');
+  const serviceSelect = document.getElementById('service-type');
+  const linkInput = document.getElementById('model-link');
 
+  // Funkcja sterująca wymagalnością pola Link
+  function toggleLinkRequirement() {
+    if (!serviceSelect || !linkInput) return;
+
+    const selected = serviceSelect.value;
+    // Opcje, które WYMAGAJĄ linku
+    const needsLink = ['print', 'link'].includes(selected);
+
+    if (needsLink) {
+      linkInput.setAttribute('required', 'required');
+      linkInput.placeholder = 'Link do pliku .stl/.3mf (wymagane)...';
+    } else {
+      linkInput.removeAttribute('required');
+      linkInput.placeholder = 'Link do zdjęć uszkodzonej części (opcjonalne)...';
+    }
+  }
+
+  // Nasłuchuj zmian w liście rozwijanej
+  if (serviceSelect) {
+    serviceSelect.addEventListener('change', toggleLinkRequirement);
+    // Uruchom raz na start (żeby ustawić stan początkowy)
+    toggleLinkRequirement();
+  }
+
+  // Obsługa wysyłania formularza (AJAX)
   if (form) {
     form.addEventListener('submit', async function(e) {
-      e.preventDefault(); // Zatrzymaj standardowe wysyłanie
+      e.preventDefault();
       
       const formData = new FormData(form);
       const action = form.getAttribute('action');
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn.innerText;
 
-      // Zmień tekst przycisku na "Wysyłanie..."
       submitBtn.innerText = 'Wysyłanie...';
       submitBtn.disabled = true;
 
@@ -137,10 +163,9 @@
         });
 
         if (response.ok) {
-          // 1. Wyczyść formularz
           form.reset();
-          
-          // 2. Przekieruj na stronę podziękowania
+          // Przywróć domyślny stan inputa po resecie
+          toggleLinkRequirement();
           window.location.href = '/dziekuje';
         } else {
           alert('Wystąpił błąd podczas wysyłania. Spróbuj ponownie.');
