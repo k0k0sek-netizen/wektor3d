@@ -26,6 +26,7 @@ class ErrorBoundary extends React.Component {
                     <div className="text-red-500 bg-black/90 p-6 rounded-2xl border border-red-500/50 text-center w-80 shadow-2xl backdrop-blur-md">
                         <p className="font-bold text-lg mb-2">Błąd pliku</p>
                         <p className="text-sm text-zinc-400 mb-4">Nie udało się odczytać modelu.</p>
+                        <p className="text-xs text-zinc-500 mb-4 font-mono">{this.state.error?.message}</p>
                         <button onClick={this.props.onReset} className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">Spróbuj ponownie</button>
                     </div>
                 </Html>
@@ -50,7 +51,8 @@ function Placeholder() {
     return (
         <Float speed={2} rotationIntensity={1} floatIntensity={1}>
             <mesh rotation={[0, Math.PI / 4, 0]}>
-                <icosahedronGeometry args={[1, 0]} />
+                {/* Zwiększony rozmiar placeholdera */}
+                <icosahedronGeometry args={[2, 0]} />
                 <meshStandardMaterial color="#3f3f46" wireframe />
             </mesh>
         </Float>
@@ -61,13 +63,16 @@ function Placeholder() {
 function Model({ url, fileName }) {
     const is3MF = fileName.toLowerCase().endsWith('.3mf');
     const LoaderType = is3MF ? ThreeMFLoader : STLLoader;
+
+    // useLoader obsługuje cache. Przy zmianie URL React automatycznie suspenduje.
     const result = useLoader(LoaderType, url);
 
     useEffect(() => {
+        // Opcjonalne czyszczenie
         return () => {
-            // Cleanup jeśli potrzebny
+            if (result && result.dispose) result.dispose();
         };
-    }, [url]);
+    }, [result]);
 
     if (is3MF) {
         return (
@@ -77,6 +82,7 @@ function Model({ url, fileName }) {
         );
     }
 
+    // STL zwraca geometrię
     return (
         <Center top>
             <mesh geometry={result} rotation={[-Math.PI / 2, 0, 0]} castShadow receiveShadow>
@@ -101,6 +107,12 @@ export default function Scene3D() {
             alert('Tylko pliki .stl i .3mf');
             return;
         }
+
+        // Revoke old URL to avoid memory leaks
+        if (modelData?.url) {
+            URL.revokeObjectURL(modelData.url);
+        }
+
         const objectUrl = URL.createObjectURL(file);
         setModelData({ url: objectUrl, name: file.name });
     };
@@ -145,12 +157,14 @@ export default function Scene3D() {
                 <input type="file" ref={fileInputRef} className="hidden" accept=".stl,.3mf" onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])} />
             </div>
 
-            <Canvas dpr={[1, 2]} camera={{ fov: 45, position: [0, 0, 150] }} shadows>
+            {/* ZMIENIONO KAMERĘ NA BLIŻSZĄ (z=10 zamiast z=150) */}
+            <Canvas dpr={[1, 2]} camera={{ fov: 45, position: [0, 0, 10] }} shadows>
                 {modelData ? (
                     <ErrorBoundary key={modelData.url} url={modelData.url} onReset={() => setModelData(null)}>
                         <Suspense fallback={<Loader />}>
                             <Stage environment="city" intensity={0.6}>
-                                <Model url={modelData.url} fileName={modelData.name} />
+                                {/* Key wymusza odświeżenie Modelu przy zmianie URL */}
+                                <Model key={modelData.url} url={modelData.url} fileName={modelData.name} />
                             </Stage>
                         </Suspense>
                     </ErrorBoundary>
