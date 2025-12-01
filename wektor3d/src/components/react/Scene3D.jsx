@@ -3,8 +3,7 @@
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { Stage, OrbitControls, Float, Center, Html, useProgress } from '@react-three/drei';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
-import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
+import { STLLoader, ThreeMFLoader } from 'three-stdlib';
 
 // --- KOMPONENTY POMOCNICZE ---
 
