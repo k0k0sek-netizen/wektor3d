@@ -53,7 +53,7 @@ function Placeholder() {
             <mesh rotation={[0, Math.PI / 4, 0]}>
                 {/* Zwiększony rozmiar placeholdera */}
                 <icosahedronGeometry args={[2, 0]} />
-                <meshStandardMaterial color="#f97316" wireframe />
+                <meshBasicMaterial color="#f97316" wireframe />
             </mesh>
         </Float>
     );
