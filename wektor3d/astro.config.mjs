@@ -11,7 +11,7 @@ export default defineConfig({
   site: 'https://www.wektor3d.pl',
 
   image: {
-    domains: ["images.unsplash.com"],
+    domains: ["images.unsplash.com", "images.ctfassets.net"],
     service: { entrypoint: 'astro/assets/services/sharp' }
   },
 
