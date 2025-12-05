@@ -50,14 +50,17 @@ try {
   });
   
   if (entries.items.length > 0) {
-    projects = entries.items.map((item) => {
+    projects = entries.items.map((item, index) => {
       const { title, description, material, image } = item.fields;
+      // Co 5. element (indeksy 4, 9, 14...) jest szeroki
+      const isLarge = (index + 1) % 5 === 0;
+      
       return {
         title,
         description,
         material,
         image: image?.fields?.file?.url ? `https:${image.fields.file.url}` : '/placeholder.webp',
-        size: "col-span-1 md:col-span-1" // Domyślny rozmiar dla dynamicznych wpisów
+        size: isLarge ? "col-span-1 md:col-span-2" : "col-span-1 md:col-span-1"
       };
     });
   }
