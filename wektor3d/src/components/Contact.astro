@@ -26,7 +26,7 @@
           type="text" 
           id="name" 
           name="name" 
-          required
+          name="name"
           class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
         />
       </div>
@@ -38,7 +38,7 @@
           type="email" 
           id="email" 
           name="email" 
-          required
+          name="email"
           class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
         />
       </div>
@@ -65,7 +65,7 @@
           type="text" 
           id="model-link" 
           name="link" 
-          required
+          name="link"
           placeholder="Link do pliku (np. Google Drive, WeTransfer, Dropbox)"
           class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
         />
@@ -112,60 +112,72 @@
 </section>
 
 <script>
+  import { contactFormSchema } from '../lib/contactSchema';
+
   // Funkcja inicjalizująca formularz (musi być wywoływana przy każdym załadowaniu strony)
   function initContactForm() {
     const form = document.getElementById('contact-form');
     const serviceSelect = document.getElementById('service-type');
     const linkInput = document.getElementById('model-link');
 
-    // 1. Logika wymagalności pola Link
+    // 1. Logika wymagalności pola Link (UX only - walidacja jest w Zod)
     function toggleLinkRequirement() {
       if (!serviceSelect || !linkInput) return;
 
       const selected = serviceSelect.value;
-      // Lista wartości, które WYMAGAJĄ pliku (sprawdź czy values w HTML są takie same: 'print', 'link')
       const needsLink = ['print', 'link'].includes(selected);
 
       if (needsLink) {
-        linkInput.setAttribute('required', 'true');
+        // Dodajemy wizualny wskaźnik, ale walidację zostawiamy Zodowi (lub HTML5 dla prostoty)
         linkInput.placeholder = 'Link do pliku .stl/.3mf (wymagane)...';
-        // Opcjonalnie: Dodaj wizualny wskaźnik wymagalności, jeśli używasz
+        linkInput.classList.add('ring-1', 'ring-orange-500/50');
       } else {
-        linkInput.removeAttribute('required');
         linkInput.placeholder = 'Link do zdjęć lub opis (opcjonalne)...';
+        linkInput.classList.remove('ring-1', 'ring-orange-500/50');
       }
     }
 
-    // 2. Obsługa wysyłania (AJAX)
+    // 2. Obsługa wysyłania (Zod Validation + AJAX)
     async function handleSubmit(e) {
-      e.preventDefault(); // STOP standardowego wysyłania
+      e.preventDefault(); 
       
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn.innerText;
 
-      // Blokada przycisku
+      // Pobierz dane z formularza
+      const formData = new FormData(form);
+      const rawData = Object.fromEntries(formData.entries());
+
+      // WALIDACJA ZOD
+      const result = contactFormSchema.safeParse(rawData);
+
+      if (!result.success) {
+        // Formatowanie błędów
+        const errorMessages = result.error.issues.map(issue => issue.message).join('\n');
+        alert(`Błąd walidacji:\n${errorMessages}`);
+        return; // STOP
+      }
+
+      // Jeśli walidacja przeszła, wysyłamy
       submitBtn.innerText = 'Wysyłanie...';
       submitBtn.disabled = true;
 
-      const formData = new FormData(form);
-      const action = form.getAttribute('action'); // Pobierz link Formspree z atrybutu action
+      const action = form.getAttribute('action'); 
 
       try {
         const response = await fetch(action, {
           method: 'POST',
-          body: formData,
+          body: formData, // Wysyłamy oryginalne FormData do Formspree
           headers: {
             'Accept': 'application/json'
           }
         });
 
         if (response.ok) {
-          // SUKCES
           form.reset(); 
-          toggleLinkRequirement(); // Reset stanu inputa
-          window.location.href = '/dziekuje'; // Przekierowanie JS
+          toggleLinkRequirement(); 
+          window.location.href = '/dziekuje'; 
         } else {
-          // BŁĄD FORMSPREE
           const data = await response.json();
           if (Object.hasOwn(data, 'errors')) {
             alert('Błąd: ' + data["errors"].map(error => error["message"]).join(", "));
@@ -176,7 +188,6 @@
           submitBtn.disabled = false;
         }
       } catch (error) {
-        // BŁĄD SIECI
         console.error('Błąd wysyłania:', error);
         alert('Wystąpił błąd połączenia. Spróbuj ponownie.');
         submitBtn.innerText = originalBtnText;
@@ -184,13 +195,10 @@
       }
     }
 
-    // Podpięcie zdarzeń (z zabezpieczeniem przed duplikacją listenerów)
+    // Podpięcie zdarzeń
     if (serviceSelect) {
-      // Usuń stary listener (jeśli istnieje) i dodaj nowy
       serviceSelect.removeEventListener('change', toggleLinkRequirement);
       serviceSelect.addEventListener('change', toggleLinkRequirement);
-      
-      // Uruchom raz na start
       toggleLinkRequirement();
     }
 
@@ -201,9 +209,6 @@
   }
 
   // OBSŁUGA ASTRO VIEW TRANSITIONS
-  // Uruchom przy pierwszym wejściu
   initContactForm();
-  
-  // Uruchom przy każdym przejściu na nową podstronę (np. powrót z innej sekcji)
   document.addEventListener('astro:page-load', initContactForm);
 </script>
