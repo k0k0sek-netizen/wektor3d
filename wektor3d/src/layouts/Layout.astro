@@ -10,6 +10,9 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+// Canonical URL (Fixes "Duplicate, Google chose different canonical than user")
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -18,8 +21,27 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
     <ClientRouter />
     <!-- SEO Główne -->
-    <title>Wektor 3D | Precyzyjny Druk 3D & Inżynieria Odwrotna</title>
+    <title>{title}</title>
     <meta name="description" content="Profesjonalne usługi druku 3D i projektowania. Odtwarzanie części zamiennych, prototypowanie i małoseryjna produkcja. Sprawdź darmową wycenę online!">
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- GTM (Consent Mode v2 Defaults) -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+      // Default consent is DENIED (GDPR)
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied'
+      });
+      
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PGC33FGZ');
+    </script>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -62,6 +84,10 @@ const { title } = Astro.props;
 		</script>
 	</head>
 	<body class="bg-zinc-950 text-zinc-300">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGC33FGZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 		<slot />
 		<CookieBanner />
 		<Analytics />

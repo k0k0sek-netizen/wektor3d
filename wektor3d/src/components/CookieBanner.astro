@@ -16,15 +16,22 @@
 </div>
 
 <script is:inline>
-  // Funkcja ładująca Twój GTM (GTM-PGC33FGZ)
-  function loadGTM() {
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PGC33FGZ'); // Twój ID
+  // Funkcja aktualizująca zgody w GTM (Consent Mode)
+  function updateConsent(granted) {
+    const status = granted ? 'granted' : 'denied';
     
-    console.log('GTM (Analityka) załadowany po zgodzie.');
+    // Upewnij się, że function gtag istnieje (z Layoutu)
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', {
+        'ad_storage': status,
+        'analytics_storage': status
+      });
+      // Opcjonalnie: reload event jeśli potrzebny
+      if (granted) {
+        dataLayer.push({'event': 'consent_granted'});
+      }
+      console.log(`GTM Consent Update: ${status}`);
+    }
   }
 
   // Logika Banera
@@ -37,22 +44,22 @@
   const consent = localStorage.getItem(storageKey);
 
   if (!consent) {
-    // Brak decyzji -> Pokaż baner (z dużym opóźnieniem dla Performance fix)
+    // Brak decyzji -> Pokaż baner
     banner.classList.remove('hidden');
     setTimeout(() => {
       banner.classList.remove('translate-y-full');
-    }, 5000);
+    }, 2000); // Mniejsze opóźnienie dla UX
   } else if (consent === 'granted') {
-    // Zgoda już była -> Ładuj GTM od razu
-    loadGTM();
+    // Zgoda już była -> Zaktualizuj GTM na start
+    updateConsent(true);
   }
 
   // Kliknięcie Akceptuj
   acceptBtn.addEventListener('click', () => {
     localStorage.setItem(storageKey, 'granted');
-    banner.classList.add('translate-y-full'); // Schowaj
+    banner.classList.add('translate-y-full');
     setTimeout(() => banner.classList.add('hidden'), 500);
-    loadGTM(); // Odpal skrypt
+    updateConsent(true);
   });
 
   // Kliknięcie Odrzuć
@@ -60,6 +67,6 @@
     localStorage.setItem(storageKey, 'denied');
     banner.classList.add('translate-y-full');
     setTimeout(() => banner.classList.add('hidden'), 500);
-    // Nie ładujemy GTM
+    updateConsent(false);
   });
 </script>
